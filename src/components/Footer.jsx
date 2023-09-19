@@ -83,8 +83,16 @@ const Logos = styled.div`
   gap: 10px;
   display: flex;
   align-items: center;
+  & > img {
+    width: 8.188rem;
+    height: 3.313rem;
+  }
   & > a {
     transition: 0.2s all;
+    & > img {
+      width: 2.813rem;
+      height: 2.813rem;
+    }
     &:hover {
       filter: invert(20%);
     }

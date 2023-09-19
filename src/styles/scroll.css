@@ -1,11 +1,9 @@
-*::-webkit-scrollbar {
-  width: 5px;
+html::-webkit-scrollbar {
+  width: 10px;
+  background-color: none;
 }
 
-*::-webkit-scrollbar-thumb {
-  background: gray;
-}
-
-*::-webkit-scrollbar-track {
-  background: none;
+html::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 42%, 0.49);
+  border-radius: 100px;
 }

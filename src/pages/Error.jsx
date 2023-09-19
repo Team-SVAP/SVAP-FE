@@ -18,17 +18,17 @@ const Wrapper = styled.div`
   width: 80%;
   height: 87vh;
   & > div {
-    gap: 20px;
+    gap: 1.25rem;
     display: flex;
     align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 5rem;
     & > h1 {
-      font-size: 100px;
+      font-size: 6.25rem;
       color: var(--gray600);
       font-weight: 700;
     }
     & > h2 {
-      font-size: 50px;
+      font-size: 3.125rem;
       color: var(--gray600);
       font-weight: 700;
     }
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 `
 
 const Line = styled.div`
-  width: 2px;
-  height: 100px;
+  width: 0.125rem;
+  height: 6.25rem;
   background: var(--gray600);
 `

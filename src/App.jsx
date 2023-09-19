@@ -16,6 +16,7 @@ export const App = () => {
 }
 
 const Wrapper = styled.div`
+  gap: 5px;
   display: flex;
   flex-direction: column;
 `
