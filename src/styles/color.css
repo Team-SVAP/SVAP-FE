@@ -1,0 +1,20 @@
+html {
+  --main900: #2B94FF;
+  --main800: #419FFF;
+  --main700: #54A9FF;
+  --main600: #72B8FF;
+  --main500: #83C0FF;
+  --main400: #A9D4FF;
+  --main300: #CCE3FB;
+  --main200: #E3F0FD;
+  --main100: #F7FBFF;
+
+  --gray800: #343434;
+  --gray700: #505050;
+  --gray600: #7C7C7C;
+  --gray500: #929292;
+  --gray400: #A7A7A7;
+  --gray300: #BEBEBE;
+  --gray200: #D3D3D3;
+  --gray100: #EBEBEB;
+}
