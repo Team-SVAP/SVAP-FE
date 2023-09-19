@@ -9,7 +9,7 @@ export const Footer = () => {
       <Developers>
         <div><h1>BackEnd</h1><a href="https://github.com/ilyoil2">강태양</a></div>
         <div><h1>FrontEnd</h1><a href="https://github.com/six-standard">육기준</a></div>
-        <div><h1>Android</h1><a href="#">Soon..</a></div>
+        <div><h1>Android</h1><a href="https://github.com/six-standard">Soon..</a></div>
         <div><h1>iOS</h1><a href="https://github.com/cyj513">조영준</a></div>
         <div><h1>Design</h1><a href="https://github.com/nimeahgnak">강해민</a></div>
       </Developers>
@@ -62,7 +62,6 @@ const Developers = styled.div`
   gap: 1.25rem;
   display: flex;
   align-items: center;
-  transition: 0.2s all;
   & > div { // 각 항목들
     gap: 0.313rem;
     display: flex;
@@ -73,6 +72,7 @@ const Developers = styled.div`
       font-weight: 600;
     }
     & > a { // 개발자 깃허브 이동 버튼
+      transition: 0.2s all;
       text-decoration-line: none;
       &:hover { filter: invert(20%); }
     }
