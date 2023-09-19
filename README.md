@@ -6,4 +6,3 @@ SVAP FrontEnd 레포지토리입니다
 > react-cookies
 > react-router-dom
 > styled-compnents
-> typescript
