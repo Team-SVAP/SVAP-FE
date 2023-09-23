@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 80%;
-  height: 87vh;
   & > div {
     gap: 20px;
     display: flex;
