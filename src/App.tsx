@@ -1,21 +1,10 @@
-import { Router } from "./router/Router";
+import { RecoilRoot } from "recoil";
 import { GlobalStyle } from "./styles/style";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { styled } from "styled-components";
+import { Router } from "./router/Router";
 
 export const App = () => {
-  return <>
+  return <RecoilRoot>
     <GlobalStyle />
-    <Wrapper>
-      <Header />
-      <Router />
-      <Footer />
-    </Wrapper>
-  </>
+    <Router />
+  </RecoilRoot>
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
