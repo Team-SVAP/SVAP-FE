@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
-import Github from '../assets/PNG/Github.png';
-import Logo from '../assets/PNG/LogoWhite.png';
+import { imgPath } from '../utils/Paths';
 import '../styles/color.css';
 
 export const Footer = () => {
@@ -9,13 +8,13 @@ export const Footer = () => {
       <Developers>
         <div><h1>BackEnd</h1><a href="https://github.com/ilyoil2">강태양</a></div>
         <div><h1>FrontEnd</h1><a href="https://github.com/six-standard">육기준</a></div>
-        <div><h1>Android</h1><a href="https://github.com/six-standard">Soon..</a></div>
+        <div><h1>Android</h1><a href="https://github.com/">박의엘</a></div>
         <div><h1>iOS</h1><a href="https://github.com/cyj513">조영준</a></div>
         <div><h1>Design</h1><a href="https://github.com/nimeahgnak">강해민</a></div>
       </Developers>
       <Logos>
-        <a href="https://github.com/Team-SVAP"><img src={Github} alt="GitHub" /></a>
-        <img src={Logo} alt="Logo" />
+        <a href="https://github.com/Team-SVAP"><Git src={`${imgPath.P}/Github.png`} alt="GitHub"/></a>
+        <Logo src={`${imgPath.P}/LogoWhite.png`} alt="Logo" />
       </Logos>
     </Interactions>
     <Line />
@@ -33,12 +32,17 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
   height: 18.75rem;
-  padding-left: 12.5rem;
-  padding-right: 12.5rem;
+  padding: 0 10% 0 10%;
+  box-sizing: border-box;
   background: var(--gray700);
-  & > div { display: flex; }
-  & * { color: var(--gray200); }
+  & * { 
+    color: var(--gray200);
+    transition: 0.2s all;
+  }
+  & div { display: flex; }
+  & a:hover { filter: invert(20%); }
 `
 
 const Interactions = styled.div`
@@ -58,9 +62,8 @@ const Contacts = styled.div`
   }
 `
 
-const Developers = styled.div`
+const Developers = styled.div` // 개발자 깃허브 URL
   gap: 1.25rem;
-  display: flex;
   align-items: center;
   & > div { // 각 항목들
     gap: 0.313rem;
@@ -68,31 +71,29 @@ const Developers = styled.div`
     align-items: center;
     flex-direction: column;
     & > h1 { // 개발자 이름
-      font-size: 1.25rem;
       font-weight: 600;
-    }
-    & > a { // 개발자 깃허브 이동 버튼
-      transition: 0.2s all;
-      text-decoration-line: none;
-      &:hover { filter: invert(20%); }
+      font-size: 1.25rem;
     }
   }
 `
 
 const Logos = styled.div`
-  gap: 10px;
-  display: flex;
+  gap: 0.625rem;
   align-items: center;
-  & > a {
-    transition: 0.2s all;
-    &:hover {
-      filter: invert(20%);
-    }
-  }
 `
 
 const Line = styled.div`
   width: 100%;
   height: 0.125rem;
   background: var(--gray200);
+`
+
+const Git = styled.img`
+  width: 2.813rem;
+  height: 2.813rem;
+`
+
+const Logo = styled.img`
+  width: 8.188rem;
+  height: 3.313rem;
 `

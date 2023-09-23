@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import Logo from '../assets/PNG/Logo.png';
+import { imgPath } from '../utils/Paths';
 
 export const Header = () => {
   return <Wrapper>
-    <img src={Logo} alt="" />
+    <Link to="/"><Logo src={`${imgPath.P}/Logo.png`} alt=""/></Link>
     <Login>
-      <h1>Admin</h1>
-      <h1>Login</h1>
+      <Button to="/admin">Admin</Button>
+      <Button to="/login">Login</Button>
     </Login>
   </Wrapper>
 }
@@ -18,22 +19,28 @@ const Wrapper = styled.div`
   width: 100%;
   height: 7.813rem;
   box-sizing: border-box;
-  padding-left: 3.125rem;
-  padding-right: 3.125rem;
+  padding: 0 3.125rem 0 3.125rem;
+  & img { cursor: pointer; }
 `
 
 const Login = styled.div`
   gap: 1.25rem;
   display: flex;
-  & > h1 {
-    cursor: pointer;
-    padding: 0.625rem;
-    transition: 0.2s all;
-    box-sizing: border-box;
-    border-radius: 0.938rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--gray700);
-    &:hover { background: var(--gray200); }
-  }
+`
+
+const Button = styled(Link)`
+  cursor: pointer;
+  padding: 0.625rem;
+  transition: 0.2s all;
+  box-sizing: border-box;
+  border-radius: 0.938rem;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--gray700);
+  &:hover { background: var(--gray200); }  
+`
+
+const Logo = styled.img`
+  width: 8.188rem;
+  height: 3.313rem;
 `
