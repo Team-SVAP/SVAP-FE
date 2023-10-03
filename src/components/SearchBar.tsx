@@ -9,13 +9,13 @@ interface Props {
   isSearch: boolean;
 }
 
-export const SearchBar = (props: Props) => {
+export const SearchBar = ({ display, isSearch }: Props) => {
   const navigate = useNavigate();
   const [search, setSearch] = useRecoilState(searchData);
+
   const KeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(e.code==="Enter") {
-      const { value } = e.target as HTMLInputElement;
-      navigate(`/search?q=${value}`);
+      navigate(`/search?q=${e.currentTarget.value}`);
     }
   }
   
@@ -23,7 +23,7 @@ export const SearchBar = (props: Props) => {
     setSearch(e.currentTarget.value);
   }
 
-  return <SearchBO htmlFor="search" display={props.display} isSearch={props.isSearch}>
+  return <SearchBO htmlFor="search" display={display} isSearch={isSearch}>
     <SearchIN type="input" id="search" placeholder="청원을 검색해주세요" onKeyDown={KeyDown} onChange={ChangeHandler} value={search} maxLength={35}/>
     <img src={`${imgPath.S}/Search.svg`} alt=""/>
   </SearchBO>
@@ -33,7 +33,6 @@ const SearchBO = styled.label<{display:number, isSearch:boolean}>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: ${props => props.display}%;
   cursor: text;
   height: 4.063rem;
   min-width: 36.625rem;
@@ -41,6 +40,7 @@ const SearchBO = styled.label<{display:number, isSearch:boolean}>`
   border-radius: 1.25rem;
   box-sizing: border-box;
   padding: 0 1.875rem 0 1.875rem;
+  width: ${props => props.display}%;
   border: ${props => props.isSearch ? "1" : "3"}px solid var(--main900);
   & > img { cursor: pointer; }
   &:hover { background: var(--gray100); }
