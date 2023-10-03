@@ -4,7 +4,7 @@ import { SearchBar } from '../components/SearchBar';
 import { imgPath } from '../utils/Paths';
 import '../styles/style';
 
-export const Main = (): JSX.Element => {
+export const Main = () => {
   return <>
     <Slide src={`${imgPath.Sl}/1.png`} />
 
