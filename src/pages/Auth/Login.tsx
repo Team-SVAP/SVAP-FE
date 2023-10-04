@@ -4,6 +4,7 @@ import '../../styles/color.css';
 import { Input } from '../../components/Input';
 import { imgPath } from '../../utils/Paths';
 import { Button } from '../../components/Button';
+import { Wrapper, Header, Footer, Main } from './Component';
 
 export const Login = () => {
   const [data, setData] = useState({
@@ -45,46 +46,3 @@ export const Login = () => {
     </Wrapper>
   </>
 }
-
-const Wrapper = styled.div`
-  display: grid;
-  place-items: center;
-  width: 34.375rem;
-  height: 38.125rem;
-  padding: 0.625rem;
-  border-radius: 1.25rem;
-  box-sizing: border-box;
-  border: 0.188rem solid var(--main500);
-`
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 2.188rem;
-  color: var(--gray700);
-`
-
-const Main = styled.div`
-  gap: 0.625rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 80%;
-`
-
-const Footer = styled.div`
-  display: flex;
-  place-self: end auto;
-  align-items: flex-end;
-  justify-content: center;
-  font-weight: 500;
-  color: var(--gray600);
-  & > a {
-    transition: 0.2s all;
-    margin: 0 0.438rem 0 0.438rem;
-    color: var(--main700);
-    &:hover { color: var(--main400); }
-  }
-`
