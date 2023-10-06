@@ -14,11 +14,11 @@ export const Router = () => {
       <Header />
       <Page>
         <Routes>
-          <Route path="*" element={<Error/>} />
           <Route path="/" element={<Main />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<Error/>} />
         </Routes>
       </Page>
       <Footer />
