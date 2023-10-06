@@ -1,14 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { imgPath } from '../utils/Paths';
+import { imgPath } from '../../utils/Paths';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const display = pathname === "/login" || pathname === "/signup" ? true : false;
+  const page = pathname === "/login" || pathname === "/signup" ? true : false;
 
   return <Wrapper>
     <Link to="/"><Logo src={`${imgPath.P}/Logo.png`} alt=""/></Link>
-    <Login display={display}>
+    <Login $page={page}>
       <Button to="/admin">Admin</Button>
       <Button to="/login">Login</Button>
     </Login>
@@ -26,9 +26,9 @@ const Wrapper = styled.div`
   & img { cursor: pointer; }
 `
 
-const Login = styled.div<{display:boolean}>`
+const Login = styled.div<{$page:boolean}>`
   gap: 1.25rem;
-  display: ${props => !props.display ? "flex" : "none"};
+  display: ${props => !props.$page ? "flex" : "none"};
 `
 
 const Logo = styled.img`
