@@ -1,16 +1,17 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { imgPath } from '../../utils/Paths';
 
 export const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const page = pathname === "/login" || pathname === "/signup" ? true : false;
 
   return <Wrapper>
-    <Link to="/"><Logo src={`${imgPath.P}/Logo.png`} alt=""/></Link>
+    <Logo src={`${imgPath.P}/Logo.png`} alt="" onClick={() => navigate("/")}/>
     <Login $page={page}>
-      <Button to="/admin">Admin</Button>
-      <Button to="/login">Login</Button>
+      <Button to="/admin"> Admin </Button>
+      <Button to="/login"> Login </Button>
     </Login>
   </Wrapper>
 }
@@ -23,12 +24,12 @@ const Wrapper = styled.div`
   height: 7.813rem;
   box-sizing: border-box;
   padding: 0 3.125rem 0 3.125rem;
-  & img { cursor: pointer; }
+  img { cursor: pointer; }
 `
 
 const Login = styled.div<{$page:boolean}>`
   gap: 1.25rem;
-  display: ${props => !props.$page ? "flex" : "none"};
+  display: ${($page) => $page ? "flex" : "none"};
 `
 
 const Logo = styled.img`
@@ -45,5 +46,5 @@ const Button = styled(Link)`
   font-weight: 800;
   font-size: 1.5rem;
   color: var(--gray700);
-  &:hover { background: var(--gray200); }  
+  :hover { background: var(--gray200); }  
 `

@@ -6,14 +6,14 @@ export const Footer = () => {
   return <Wrapper>
     <Interactions>
       <Developers>
-        <div> <h1>BackEnd</h1> <a href="https://github.com/ilyoil2">강태양</a> </div>
-        <div> <h1>FrontEnd</h1> <a href="https://github.com/six-standard">육기준</a> </div>
-        <div> <h1>Android</h1> <a href="https://github.com/">박의엘</a> </div>
-        <div> <h1>iOS</h1> <a href="https://github.com/cyj513">조영준</a> </div>
-        <div> <h1>Design</h1> <a href="https://github.com/nimeahgnak">강해민</a> </div>
+        <div> BackEnd <a href="https://github.com/ilyoil2">강태양</a> </div>
+        <div> FrontEnd <a href="https://github.com/six-standard">육기준</a> </div>
+        <div> Android <a href="https://github.com/">박의엘</a> </div>
+        <div> iOS <a href="https://github.com/cyj513">조영준</a> </div>
+        <div> Design <a href="https://github.com/nimeahgnak">강해민</a> </div>
       </Developers>
       <Logos>
-        <a href="https://github.com/Team-SVAP"> <Git src={`${imgPath.P}/Github.png`} alt=""/> </a>
+        <a href="https://github.com/Team-SVAP"> <Git src={`${imgPath.P}/Github.png`} alt="" width="2.813rem" height="2.813rem"/> </a>
         <Logo src={`${imgPath.P}/LogoWhite.png`} alt="Logo" />
       </Logos>
     </Interactions>
@@ -70,10 +70,9 @@ const Developers = styled.div` // 개발자 깃허브 URL
     display: flex;
     align-items: center;
     flex-direction: column;
-    h1 { // 개발자 이름
-      font-weight: 600;
-      font-size: 1.25rem;
-    }
+    font-weight: 600;
+    font-size: 1.25rem;
+    a { font-size: 17px; }
   }
 `
 
