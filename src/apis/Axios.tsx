@@ -6,7 +6,7 @@ const cookie = new Cookies();
 
 export const instance = axios.create({
   baseURL: `${process.env.REACT_APP_API_KEY}`,
-  timeout: 1000,
+  timeout: 3000,
 })
 
 instance.interceptors.request.use(
