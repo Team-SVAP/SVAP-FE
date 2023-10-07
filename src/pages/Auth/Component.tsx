@@ -3,7 +3,8 @@ import { styled } from 'styled-components';
 export const Wrapper = styled.div`
 display: grid;
 place-items: center;
-width: 34.375rem;
+width: 60%;
+max-width: 34.375rem;
 height: 38.125rem;
 padding: 0.625rem;
 border-radius: 1.25rem;
