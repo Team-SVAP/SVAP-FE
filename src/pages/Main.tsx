@@ -8,11 +8,11 @@ export const Main = () => {
   return <>
     <Slide src={`${imgPath.Sl}/1.png`} />
 
-    <SearchBar width={45} isSearch={false}/>
+    <SearchBar width={45} $search={false}/>
 
     <Links>
-      <LinkButton to="watch"><h1>청원 보기</h1><img src={`${imgPath.S}/Watch.svg`} alt=""/></LinkButton>
-      <LinkButton to="write"><h1>청원 작성</h1><img src={`${imgPath.S}/Write.svg`} alt=""/></LinkButton>
+      <LinkButton to="watch"><h1>청원 보기</h1><Watch src={`${imgPath.S}/Watch.svg`} alt=""/></LinkButton>
+      <LinkButton to="write"><h1>청원 작성</h1><Write src={`${imgPath.S}/Write.svg`} alt=""/></LinkButton>
     </Links>
 
     <Posts>
@@ -117,4 +117,14 @@ const PostsData = styled.div`
     color: var(--gray700);
     &:hover { gap: 1.25rem; }
   }
+`
+
+const Watch = styled.img`
+  width: 1.75rem;
+  height: 1.563rem;
+`
+
+const Write = styled.img`
+  width: 1.75rem;
+  height: 1.75rem;
 `
