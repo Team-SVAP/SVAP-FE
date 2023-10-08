@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import { Cookies } from 'react-cookie';
 import { useState } from 'react';
 import { Wrapper, Header, Footer, Main } from './Component';
 import { postLogin } from '../../apis/Auth/index';
@@ -15,6 +16,7 @@ export const Login = () => {
   })
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+  const cookie = new Cookies();
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     if(e.currentTarget.id==="id") setData({...data, "accountId": e.currentTarget.value} );
@@ -22,9 +24,13 @@ export const Login = () => {
   }
 
   const FLogin = () => {
-    postLogin(data).then(() => {
+    postLogin(data).then(res => {
       navigate("/");
-      toast.success("성공적으로 로그인되었습니다");
+      if(res) {
+        cookie.set("accessToken", res.data.accessToken);
+        cookie.set("refreshToken", "refreshTEMP");
+      }
+      toast.success(<b>성공적으로 로그인되었습니다</b>);
     }).catch(() => {})
   }
 

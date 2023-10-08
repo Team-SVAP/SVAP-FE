@@ -24,7 +24,11 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   res => { return res }, 
   err => { 
-    toast.error("오류가 발생헀습니다") 
+    toast.error(<>
+      <b>오류가 발생했습니다</b> 
+      <br />
+      <code>{err.response.data.message}</code>
+    </>) 
     return Promise.reject(err);
   }
 )
