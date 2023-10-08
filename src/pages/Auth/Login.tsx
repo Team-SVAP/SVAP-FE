@@ -10,7 +10,7 @@ import { imgPath } from '../../utils/Paths';
 import '../../styles/color.css';
 
 export const Login = () => {
-  const [data, setData] = useState({
+  const [data, setData]: any = useState({
     "accountId": "",
     "password": ""
   })
@@ -19,9 +19,10 @@ export const Login = () => {
   const cookie = new Cookies();
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
-    if(e.currentTarget.id==="id") setData({...data, "accountId": e.currentTarget.value} );
-    else setData({...data, "password": e.currentTarget.value} );
-  }
+    let tmp = { ...data };
+    tmp[e.currentTarget.id] = e.currentTarget.value;
+    setData(tmp);
+  };
 
   const FLogin = () => {
     postLogin(data).then(res => {
@@ -38,13 +39,13 @@ export const Login = () => {
     <Wrapper>
       <Header>Log in</Header>
       <Main>
-        <Input type="text" placeholder="아이디" value={data.accountId} change={change} id="id" width="100%" height="3.438rem" />
+        <Input placeholder="아이디" value={data.accountId} change={change} id="accountId" width="100%" height="3.438rem" />
         <Input 
           type={visible ? "text" : "password"}
           placeholder="비밀번호"
           value={data.password} 
           change={change}
-          id="pw"
+          id="password"
           width="100%"
           height="3.438rem"
           icon={{"icon":`${imgPath.S}/${visible ? "Opened.svg" : "Closed.svg"}`, action:() => setVisible(visible ? false : true)}}
