@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { Cookies } from 'react-cookie';
 import { useState } from 'react';
 import { Wrapper, Header, Footer, Main } from './Component';
-import { postLogin } from '../../apis/Auth/index';
+import { getInfo, postLogin } from '../../apis/Auth/index';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { imgPath } from '../../utils/Paths';
@@ -26,12 +26,16 @@ export const Login = () => {
 
   const FLogin = () => {
     postLogin(data).then(res => {
-      navigate("/");
       if(res) {
         cookie.set("accessToken", res.data.accessToken);
         cookie.set("refreshToken", "refreshTEMP");
+        getInfo().then(res => {
+          cookie.set("name", res.data.userName);
+          cookie.set("role", res.data.role);
+          navigate("/");
+          toast.success(<b>성공적으로 로그인되었습니다</b>);
+        })
       }
-      toast.success(<b>성공적으로 로그인되었습니다</b>);
     }).catch(() => {})
   }
 
