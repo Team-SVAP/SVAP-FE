@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const App = () => {
   return <RecoilRoot>
     <CookiesProvider>
-      <ToastContainer />
+      <ToastContainer autoClose={1000} />
       <GlobalStyle />
       <Router />
     </CookiesProvider>
