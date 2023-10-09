@@ -8,7 +8,7 @@ export const Main = () => {
   return <>
     <Slide src={`${imgPath.Sl}/1.png`} />
 
-    <SearchBar width={45} $search={false}/>
+    <SearchBar width="45%" />
 
     <Links>
       <LinkButton to="watch"><h1>청원 보기</h1><Watch src={`${imgPath.S}/Watch.svg`} alt=""/></LinkButton>
