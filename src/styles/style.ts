@@ -34,4 +34,8 @@ export const GlobalStyle = createGlobalStyle`
       color: var(--gray300);
     }
   }
+
+  textarea {
+    padding: 1rem 1.25rem 1rem 1.25rem;
+  }
 `

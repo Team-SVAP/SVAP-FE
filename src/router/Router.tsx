@@ -7,6 +7,7 @@ import { Login } from "../pages/Auth/Login";
 import { Search } from '../pages/Search';
 import { Error } from '../pages/Error';
 import { Main } from '../pages/Main';
+import { Write } from "../pages/Write";
 
 export const Router = () => {
   return <BrowserRouter>
@@ -16,6 +17,7 @@ export const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/write" element={<Write />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<Error/>} />
