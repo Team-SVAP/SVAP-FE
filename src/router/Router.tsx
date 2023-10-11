@@ -8,6 +8,8 @@ import { Search } from '../pages/Search';
 import { Error } from '../pages/Error';
 import { Main } from '../pages/Main';
 import { Write } from "../pages/Write";
+import { Watch } from "../pages/Watch";
+import { My } from "../pages/My";
 
 export const Router = () => {
   return <BrowserRouter>
@@ -17,8 +19,10 @@ export const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/my" element={<My />} />
           <Route path="/write" element={<Write />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/watch" element={<Watch />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<Error/>} />
         </Routes>

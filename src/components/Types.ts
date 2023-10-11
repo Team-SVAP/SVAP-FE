@@ -8,7 +8,7 @@ interface Iicon {
 
 interface IInputContainer {
   type?: string;
-  value: string;
+  value?: string;
   icon?: Iicon;
   width: string;
   height: string;
@@ -34,4 +34,12 @@ export interface ITextArea extends IInputContainer {
 export interface ILogout {
   cookie: Cookies;
   navigate: NavigateFunction;
+}
+
+export interface IPost {
+  title: string;
+  date: string;
+  loc: string;
+  locDet: string;
+  content: string;
 }
