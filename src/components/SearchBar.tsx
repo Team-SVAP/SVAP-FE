@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { searchData } from '../utils/Atoms';
 import { imgPath } from '../utils/Paths';
 
 interface ISearch {
@@ -9,7 +7,6 @@ interface ISearch {
 }
 
 export const SearchBar = ({ width }: ISearch) => {
-  const [search, setSearch] = useRecoilState(searchData);
   const navigate = useNavigate();
 
   const KeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -17,13 +14,9 @@ export const SearchBar = ({ width }: ISearch) => {
       navigate(`/search?q=${e.currentTarget.value}`);
     }
   }
-  
-  const ChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value);
-  }
 
   return <Container htmlFor="search" width={width}>
-    <_Input type="input" id="search" placeholder="청원을 검색해주세요" onKeyDown={KeyDown} onChange={ChangeHandler} value={search} maxLength={100}/>
+    <_Input type="input" id="search" placeholder="청원을 검색해주세요" onKeyDown={KeyDown} maxLength={100}/>
     <img src={`${imgPath.S}/Search.svg`} alt=""/>
   </Container>
 }
