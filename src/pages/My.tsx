@@ -1,11 +1,36 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Post } from '../components/Post';
+import { getMyPost } from '../apis/Petition';
 
 export const My = () => {
+  const [posts, setPosts]: any = useState([]);
+
+  useEffect(() => {
+    getMyPost().then(res => {
+      res.data.map((i: any) => {
+        setPosts((posts:any) => [...posts, {
+          title: i.title,
+          content: "내용내용내용내용내용",
+          types: i.type==="SCHOOL" ? "학교" : "기숙사",
+          location: i.location,
+          date: (i.dateTime.split("T"))[0],
+          id: i.id
+        }])    
+      })
+    }).catch(() => {})
+  }, [])
+
   return <Wrapper>
     <Title>내가 쓴 청원 보기</Title>
     <Data>
-    <Post title="새롬홀 의자 너무 딱딱해요ㅜ" date="2023-09-17" loc="학교" locDet="새롬홀" content="현재 우리나라는 김대중 전 대통령 때부터 사형 집행이 중지됐" />  
+      {
+        posts.length!==0 ?
+        posts.map((i: any) => {
+          return <Post id={i.id} key={i.id} title={i.title} date={i.date} loc={i.types} locDet={i.location} content={i.content} />
+        })
+        : <h1>작성한 청원이 존재하지 않습니다</h1>
+      }
     </Data>
   </Wrapper>
 }
@@ -18,6 +43,9 @@ const Wrapper = styled.div`
   padding-top: 50px;
   min-width: 46.625rem;
   min-height: 87vh;
+  & > button {
+    align-self: flex-end;
+  }
 `
 
 const Title = styled.div`
@@ -31,4 +59,9 @@ const Data = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  & > h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gray600);
+  }
 `
