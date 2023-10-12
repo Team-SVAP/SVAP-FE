@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     toast.error(<>
       <b>오류가 발생했습니다</b> 
       <br />
-      <code>{err.response.data.message}</code>
+      <code>{err.response.data.error || err.response.data.message}</code>
     </>) 
     return Promise.reject(err);
   }
