@@ -22,7 +22,8 @@ export const Router = () => {
           <Route path="/my" element={<My />} />
           <Route path="/write" element={<Write />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/watch" element={<Watch />} />
+          <Route path="/watch/:page" element={<Watch />} />
+          <Route path="/posts/:id" element={<>없다</>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<Error/>} />
         </Routes>
@@ -40,7 +41,7 @@ const Page = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 87vh;
-  /* transition: 0.2s all; */
+  transition: 0.2s all;
   margin-bottom: 3.125rem;
 `
 
