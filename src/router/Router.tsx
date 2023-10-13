@@ -10,6 +10,7 @@ import { Main } from '../pages/Main';
 import { Write } from "../pages/Write";
 import { Watch } from "../pages/Watch";
 import { My } from "../pages/My";
+import { Posts } from "../pages/Posts";
 
 export const Router = () => {
   return <BrowserRouter>
@@ -23,7 +24,7 @@ export const Router = () => {
           <Route path="/write" element={<Write />} />
           <Route path="/login" element={<Login />} />
           <Route path="/watch/:page" element={<Watch />} />
-          <Route path="/posts/:id" element={<>없다</>} />
+          <Route path="/posts/:id" element={<Posts />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<Error/>} />
         </Routes>
