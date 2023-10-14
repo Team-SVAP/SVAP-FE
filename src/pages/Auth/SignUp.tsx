@@ -6,6 +6,9 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { imgPath } from '../../utils/Paths';
 import React from 'react';
+import { getDuplication, postSignUp } from '../../apis/Auth';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // import { getDuplication } from '../../apis/Auth';
 
 type TId = {
@@ -30,26 +33,30 @@ export const SignUp = () => {
     pw: data.password.length,
     name: data.userName.length
   }
+  const navigate = useNavigate();
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
-    if(e.currentTarget.id !== "confirm") setData({ ...data, [e.currentTarget.id]: e.currentTarget.value});
+    if(e.currentTarget.id !== "confirm") { 
+      setData({ ...data, [e.currentTarget.id]: e.currentTarget.value});
+    }
     else setConfirm(e.currentTarget.value);
   }
 
-  // const submit = () => {
+  const submit = () => {
+    postSignUp(data).then(() => {
+      navigate("/login");
+      toast.success(<b>회원 가입이 완료되었습니다</b>);
+    }).catch(() => {})
+  }
 
-  //   switch(cnt) {
-  //     case 1:
-  //       if(len.id >= 2 && len.id <= 5) {
-  //         getDuplication(data.accountId).then()
-  //       }
-  //       break;
-  //     case 2:
-  //       break;
-  //     case 3:
-  //       break;
-  //   }
-  // }
+  const next = () => {
+    if(cnt === 1) {
+      getDuplication({ accountId: data.accountId }).then(res => {
+        setCnt(cnt => cnt+1);
+      }).catch(() => {});
+    }
+    else setCnt(cnt => cnt+1);
+  }
 
   return <>
     <Wrapper>
@@ -61,7 +68,7 @@ export const SignUp = () => {
         {
           cnt === 1 && <>
             <Input type="text" placeholder="아이디 (영문 8자 이하)" change={change} id="accountId" width="100%" height="3.438rem" />
-            <Button disabled={len.id <= 20 ? true : false} text="다음" action={() => setCnt(cnt => cnt+1)} style={{"alignSelf": "flex-end"}}/>
+            <Button disabled={len.id <= 8 && len.id >= 1 ? true : false} text="다음" action={next} style={{"alignSelf": "flex-end"}}/>
           </>
         }{
           cnt === 2 && <>
@@ -85,12 +92,12 @@ export const SignUp = () => {
               height="3.438rem"
               icon={{"icon":`${imgPath.S}/${visible.confirm ? "Opened.svg" : "Closed.svg"}`, action:() => setVisible({...visible, confirm: visible.confirm ? false : true })}}
             />
-            <Button disabled={len.pw >= 8 && len.id <= 32 && data.password === confirm && data.password.match(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g) ? true : false} text="다음" action={() => setCnt(cnt => cnt+1)} style={{"alignSelf": "flex-end"}}/>
+            <Button disabled={len.pw >= 8 && len.id <= 32 && data.password === confirm && data.password.match(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g) ? true : false} text="다음" action={next} style={{"alignSelf": "flex-end"}}/>
           </>
         }{
           cnt === 3 && <>
             <Input type="text" placeholder="이름" change={change} id="userName" width="100%" height="3.438rem" />
-            <Button disabled={len.name >= 2 && len.name <= 5 ? true : false} text="회원가입" action={() => {}} style={{"alignSelf": "flex-end"}}/>
+            <Button disabled={len.name >= 2 && len.name <= 4 ? true : false} text="회원가입" action={submit} style={{"alignSelf": "flex-end"}}/>
           </>
         }
       </Main>
