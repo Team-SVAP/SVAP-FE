@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { styled } from 'styled-components';
-import { Header } from '../components/common/Header';
-import { Footer } from '../components/common/Footer';
+import { styled } from "styled-components";
+import { Header } from "../components/common/Header";
+import { Footer } from "../components/common/Footer";
 import { SignUp } from "../pages/Auth/SignUp";
 import { Login } from "../pages/Auth/Login";
-import { Search } from '../pages/Search';
-import { Error } from '../pages/Error';
-import { Main } from '../pages/Main';
+import { Posts } from "../pages/PostPage";
+import { Search } from "../pages/Search";
+import { Error } from "../pages/Error";
 import { Write } from "../pages/Write";
 import { Watch } from "../pages/Watch";
-import { My } from "../pages/My";
-import { Posts } from "../pages/Posts";
+import { Main } from "../pages/Main";
+import { My } from "../pages/MyPage";
 
 export const Router = () => {
   return <BrowserRouter>
