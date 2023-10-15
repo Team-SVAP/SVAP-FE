@@ -1,17 +1,26 @@
-import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
-import { Post } from '../components/Post';
-import { getMyPost } from '../apis/Petition';
+import { useEffect, useState } from "react";
+import { styled } from "styled-components";
+import { getMyPost } from "../apis/Petition";
+import { Post } from "../components/Post";
+
+interface IData {
+  title: string;
+  content: string;
+  type: string;
+  location: string;
+  dateTime: string;
+  id: number;
+}
 
 export const My = () => {
   const [posts, setPosts]: any = useState([]);
 
   useEffect(() => {
     getMyPost().then(res => {
-      res.data.map((i: any) => {
+      res.data.map((i: IData) => {
         setPosts((posts:any) => [...posts, {
           title: i.title,
-          content: "내용내용내용내용내용",
+          content: i.content,
           types: i.type==="SCHOOL" ? "학교" : "기숙사",
           location: i.location,
           date: (i.dateTime.split("T"))[0],
@@ -36,32 +45,30 @@ export const My = () => {
 }
 
 const Wrapper = styled.div`
-  gap: 16px;
+  gap: 1rem;
   display: flex;
   flex-direction: column;
   width: 50%;
-  padding-top: 50px;
-  min-width: 46.625rem;
   min-height: 87vh;
-  & > button {
-    align-self: flex-end;
-  }
+  min-width: 46.625rem;
+  padding-top: 3.125rem;
+  & > button { align-self: flex-end; }
 `
 
 const Title = styled.div`
-  font-size: 24px;
-  color: var(--gray800);
   font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--gray800);
 `
 
 const Data = styled.div`
-  gap: 10px;
+  gap: 0.625rem;
   display: flex;
   align-items: center;
   flex-direction: column;
   & > h1 {
-    font-size: 20px;
     font-weight: 600;
+    font-size: 1.25rem;
     color: var(--gray600);
   }
 `

@@ -1,13 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { IPost } from './Types';
 
-export const Post = ({ title, date, loc, locDet, content }: IPost) => {
-  return <Component>
+export const Post = ({ title, date, loc, locDet, content, id }: IPost) => {
+  const navigate = useNavigate();
+  return <Component onClick={() => navigate(`/posts/${id}`)}>
     <Title>
       {title}
-      <Date>
-        {date}
-      </Date>
+      <Date>{date}</Date>
     </Title>
     <Type>#{loc}_{locDet}</Type>
     <Content>{content}</Content>
@@ -15,40 +15,42 @@ export const Post = ({ title, date, loc, locDet, content }: IPost) => {
 }
 
 const Component = styled.div`
-  gap: 5px;
+  gap: 0.313rem;
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  border-radius: 15px;
-  border: 2px solid var(--main700);
   width: 100%;
-  height: 120px;
-  min-width: 760px;
+  cursor: pointer;
+  padding: 0.938rem;
+  min-width: 47.5rem;
+  box-sizing: border-box;
+  border-radius: 0.938rem;
+  border: 0.125rem solid var(--main700);
 `
 
 const Title = styled.div`
   display: flex;
-  width: 100%;
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--gray800);
   justify-content: space-between;
+  width: 100%;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--gray800);
 `
 
 const Date = styled.div`
-  font-size: 17px;
   font-weight: 500;
+  font-size: 1.063rem;
   color: var(--gray800);
 `
 
 const Type = styled.div`
-  font-size: 20px;
   font-weight: 500;
+  font-size: 1.25rem;
   color: var(--main700);
 `
 
 const Content = styled.div`
-  color: var(--gray600);
+  width: 55%;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 0.938rem;
+  color: var(--gray600);
 `
