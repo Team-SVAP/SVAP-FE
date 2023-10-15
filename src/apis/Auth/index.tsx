@@ -1,5 +1,11 @@
-import { IAuth } from "./Types";
 import { instance } from "../Axios";
+
+export interface IAuth {
+  userName?: string;
+  accountId: string;
+  password?: string;
+  code?: string;
+}
 
 export const postLogin = async (Data: IAuth) => {
   return await instance.post("/user/login", Data);
