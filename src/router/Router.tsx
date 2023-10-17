@@ -6,7 +6,7 @@ import { SignUp } from "../pages/Auth/SignUp";
 import { Login } from "../pages/Auth/Login";
 import { Posts } from "../pages/PostPage";
 import { Search } from "../pages/Search";
-import { Error } from "../pages/Error";
+import { Error } from "../pages/ErrorPage";
 import { Write } from "../pages/Write";
 import { Watch } from "../pages/Watch";
 import { Main } from "../pages/Main";
