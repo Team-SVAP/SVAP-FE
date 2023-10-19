@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
     background: none;
     user-select: none;
+    transition: 0.2s all;
     text-decoration-line: none;
     font-family: "IBM Plex Sans KR";
   }
