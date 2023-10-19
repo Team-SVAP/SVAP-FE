@@ -2,29 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { Cookies } from 'react-cookie';
 import { useState } from 'react';
-import { Wrapper, Header, Footer, Main } from './Component';
-import { getInfo, postLogin } from '../../apis/Auth/index';
-import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
-import { imgPath } from '../../utils/Paths';
-import '../../styles/color.css';
+import { getInfo, postLogin } from '../../../apis/Auth/index';
+import { Button } from '../../../components/common/Button';
+import { Input } from '../../../components/common/Input';
+import { Wrapper, Header, Footer, Main } from '../Style';
+import { imgPath } from '../../../utils/Paths';
+import { IData } from '../Types';
 
 export const Login = () => {
-  const [data, setData]: any = useState({
-    "accountId": "",
-    "password": ""
+  const [data, setData] = useState<IData>({
+    accountId: "",
+    password: ""
   })
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
   const cookie = new Cookies();
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
-    let tmp = { ...data };
-    tmp[e.currentTarget.id] = e.currentTarget.value;
-    setData(tmp);
+    setData({...data, [e.currentTarget.id]: e.currentTarget.value});
   };
 
-  const FLogin = () => {
+  const handleLogin = () => {
     postLogin(data).then(res => {
       if(res) {
         cookie.set("accessToken", res.data.accessToken);
@@ -54,7 +52,7 @@ export const Login = () => {
           height="3.438rem"
           icon={{"icon":`${imgPath.S}/${visible ? "Opened.svg" : "Closed.svg"}`, action:() => setVisible(visible ? false : true)}}
         />
-        <Button disabled={data.accountId !== "" && data.password !== "" ? true : false} text="Log in" action={FLogin} style={{"alignSelf": "flex-end"}}/>
+        <Button disabled={data.accountId !== "" && data.password !== "" ? true : false} text="Log in" action={handleLogin} style={{"alignSelf": "flex-end"}}/>
       </Main>
       <Footer>아직 가입하지 않으셨나요? <a href="/signup">회원가입</a>또는<a href="/signup_admin">관리자 회원가입</a></Footer>
     </Wrapper>

@@ -1,6 +1,3 @@
-import { Cookies } from "react-cookie";
-import { NavigateFunction } from "react-router-dom";
-
 interface Iicon {
   icon: string;
   action: () => void;
@@ -31,15 +28,15 @@ export interface ITextArea extends IInputContainer {
   change: (e: React.FormEvent<HTMLTextAreaElement>) => void;
 }
 
-export interface ILogout {
-  cookie: Cookies;
-  navigate: NavigateFunction;
-}
-
 export interface IPost {
   title: string;
   date: string;
   loc: string;
   locDet: string;
   content: string;
+  id: number;
+}
+
+export interface ISearch {
+  width: string;
 }

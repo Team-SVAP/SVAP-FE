@@ -2,11 +2,12 @@ import { styled } from 'styled-components';
 
 export const Wrapper = styled.div`
 display: grid;
+grid-template-rows: 1fr 2fr 1fr;
 place-items: center;
 width: 60%;
 max-width: 34.375rem;
 height: 38.125rem;
-padding: 0.625rem;
+padding: 0.625rem 0.925rem 0.625rem 0.925rem;
 border-radius: 1.25rem;
 box-sizing: border-box;
 border: 0.188rem solid var(--main500);
