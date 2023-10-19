@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { IButton } from './Types';
+import { IButton } from '../Types';
 
 export const Button = ({ text, disabled, style, action }: IButton) => {
   return <Component disabled={!disabled} onClick={action} style={style}>

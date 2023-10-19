@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { IInput, ITextArea } from './Types';
+import { IInput, ITextArea } from '../Types';
 
 export const Input = ({ type, value, icon, width, height, id, placeholder, change }: IInput) => {
   return <Component htmlFor={id} width={width} height={height}>
