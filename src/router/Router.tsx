@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { styled } from "styled-components";
-import { Header } from "../components/common/Header";
-import { Footer } from "../components/common/Footer";
+import { Header } from "../components/static/Header";
+import { Footer } from "../components/static/Footer";
 import { SignUp } from "../pages/Auth/SignUp";
 import { Login } from "../pages/Auth/Login";
-import { Posts } from "../pages/PostPage";
+import { Detail } from "../pages/Detail";
 import { Search } from "../pages/Search";
-import { Error } from "../pages/ErrorPage";
+import { Error } from "../pages/Error";
 import { Write } from "../pages/Write";
 import { Watch } from "../pages/Watch";
 import { Main } from "../pages/Main";
-import { My } from "../pages/MyPage";
+import { My } from "../pages/My";
 
 export const Router = () => {
   return <BrowserRouter>
@@ -24,7 +24,7 @@ export const Router = () => {
           <Route path="/write" element={<Write />} />
           <Route path="/login" element={<Login />} />
           <Route path="/watch/:page" element={<Watch />} />
-          <Route path="/posts/:id" element={<Posts />} />
+          <Route path="/posts/:id" element={<Detail />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<Error/>} />
         </Routes>
@@ -42,7 +42,6 @@ const Page = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 87vh;
-  transition: 0.2s all;
   margin-bottom: 3.125rem;
 `
 
