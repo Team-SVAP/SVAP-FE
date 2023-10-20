@@ -1,9 +1,34 @@
-import { styled } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { styled, keyframes } from 'styled-components';
 
-export const Slide = styled.img`
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`
+
+export const SlideBox = styled.div`
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+`
+
+export const SlideItem = styled.img<{fade: boolean; key: React.Key}>`
   width: 80%;
   height: auto;
+  cursor: pointer;
+  animation: ${({fade}) => fade ? fadeOut : fadeIn} 0.5s ease-in-out;
 `
 
 export const Links = styled.div`
@@ -22,7 +47,7 @@ export const Posts = styled.div`
   min-width: 36.625rem;
 `
 
-export const LinkButton = styled(Link)`
+export const LinkButton = styled.button`
   gap: 9px;
   display: flex;
   align-items: center;
