@@ -67,7 +67,7 @@ export const Dropdown = styled.div`
   & > div#box{
     display: grid;
     place-items: center center;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 99% 1%;
     width: 100%;
     height: 3.125rem;
     & img { place-self: center end; }
@@ -81,7 +81,6 @@ export const Dropdown = styled.div`
     height: 100px;
     width: 252.5px;
     margin-top: 45px;
-    border-top: none;
     background: white;
     position: absolute;
     transition: 0.2s all;
@@ -89,6 +88,7 @@ export const Dropdown = styled.div`
     padding: 10px 0 10px 0;
     border-radius: 0 0 1rem 1rem;
     border: 0.125rem solid var(--main700);
+    border-top: none;
     & h1 {
       width: 70%;
       background: white;

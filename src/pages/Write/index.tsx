@@ -9,6 +9,13 @@ import { IData, IItem } from "./Types";
 import "../../styles/style";
 import * as _ from "./Style";
 
+const Item = ({ title, value }: IItem) => {
+  return <_.ItemBox>
+    <h1><span>*</span>{title}</h1>
+    {value}
+  </_.ItemBox>
+}
+
 export const Write = () => {
   const [data, setData] = useState<IData>({
     title: "",
@@ -37,13 +44,6 @@ export const Write = () => {
     } else {
       toast.error("사진 첨부는 3개 이하만 가능합니다.");
     }
-  }
-
-  const Item = ({ title, value }: IItem) => {
-    return <_.ItemBox>
-      <h1><span>*</span>{title}</h1>
-      {value}
-    </_.ItemBox>
   }
 
   // const submit = () => {
