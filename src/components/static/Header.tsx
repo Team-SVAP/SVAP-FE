@@ -104,8 +104,8 @@ const Dropdown = styled.div<{admin: boolean}>`
   border-radius: 0.938rem;
   border: 0.063rem solid var(--gray200);
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-  margin-top: ${({admin}) => admin ? "15.313" : "15.938"}rem;
-  & div#Name div#Buttons{
+  margin-top: ${({admin}) => admin ? "13.313" : "13.938"}rem;
+  & > div#Name{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -119,6 +119,11 @@ const Dropdown = styled.div<{admin: boolean}>`
       font-size: 1.25rem;
       color: var(--gray600);
     }
+  }
+  & > div#Buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
   & h2, h3 {
     cursor: pointer;
