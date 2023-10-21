@@ -12,8 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "IBM Plex Sans KR";
   }
 
-  label, textarea, button {
-    transition: 0.2s all;
+  body {
+    transition: none;
   }
 
   label, textarea {
