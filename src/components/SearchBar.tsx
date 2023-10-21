@@ -1,10 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { imgPath } from '../utils/Paths';
-
-interface ISearch {
-  width: string;
-}
+import { ISearch } from './Types';
 
 export const SearchBar = ({ width }: ISearch) => {
   const navigate = useNavigate();
@@ -15,13 +12,13 @@ export const SearchBar = ({ width }: ISearch) => {
     }
   }
 
-  return <Container htmlFor="search" width={width}>
-    <_Input type="input" id="search" placeholder="청원을 검색해주세요" onKeyDown={KeyDown} maxLength={100}/>
+  return <SearchBox htmlFor="search" width={width}>
+    <Input type="input" id="search" placeholder="청원을 검색해주세요" onKeyDown={KeyDown} maxLength={100}/>
     <img src={`${imgPath.S}/Search.svg`} alt=""/>
-  </Container>
+  </SearchBox>
 }
 
-const Container = styled.label<{width:string}>`
+const SearchBox = styled.label<{width:string}>`
   gap: 1.875rem;
   display: flex;
   align-items: center;
@@ -31,16 +28,14 @@ const Container = styled.label<{width:string}>`
   width: ${({width}) => width};
   padding: 0 1.875rem 0 1.875rem;
   border: 2px solid var(--main900);
-  img { 
-    cursor: pointer; 
-  } &:hover { 
-    background: var(--gray100); 
-  } &:focus-within { 
+  & img { cursor: pointer; } 
+  &:hover { background: var(--gray100); }
+  &:focus-within { 
     background: var(--gray100); 
     border: 2px solid var(--main900);
   }
 `
 
-const _Input = styled.input`
+const Input = styled.input`
   width: 100%;
 `
