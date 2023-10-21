@@ -102,7 +102,7 @@ export const Top = styled.div`
 `
 
 export const Line = styled.div`
-  width: 105%;
+  width: 101%;
   height: 1px;
   background: var(--gray200);
 `
