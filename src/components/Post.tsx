@@ -10,7 +10,7 @@ export const Post = ({ title, date, loc, locDet, content, id }: IPost) => {
       <Date>{date}</Date>
     </Title>
     <Type>#{loc}_{locDet}</Type>
-    <Content>{content}</Content>
+    <Content>{content.length < 90 ? content : content.substring(0, 95)+"..."}</Content>
   </Component>
 }
 
