@@ -18,6 +18,12 @@ export const ContentBox = styled.div`
   width: 70%;
 `
 
+export const TitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
 export const InteractionBox = styled.div`
   gap: 1.875rem;
   display: flex;
@@ -45,6 +51,7 @@ export const ImageBox = styled.div`
   & > img#image {
     width: 24.375rem;
     height: 18.75rem;
+    transition: none;
     box-sizing: border-box;
     border-radius: 0.938rem;
     border: 0.125rem solid whitesmoke;
@@ -54,7 +61,6 @@ export const ImageBox = styled.div`
     padding: 0.625rem;
     cursor: pointer;
     position: absolute;
-    transition: 0.2s all;
     filter: invert(100%);
     &:hover { filter: invert(50%); }
   }
@@ -141,7 +147,6 @@ export const Point = styled.div<{on: boolean}>`
 export const Report = styled.h1`
   align-self: flex-end;
   cursor: pointer;
-  transition: 0.2s all;
   font-weight: 600;
   font-size: 1.25rem;
   color: var(--main900);

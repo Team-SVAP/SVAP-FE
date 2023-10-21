@@ -15,7 +15,7 @@ export const Detail = () => {
   const [cnt, setCnt] = useState<number>(0);
   const [data, setData] = useState<IData>({
     accessTypes: "",
-    content: "",
+    content: <></>,
     id: 0,
     imgUrl: [],
     location: "",
@@ -32,7 +32,7 @@ export const Detail = () => {
     getPostDetail(id as unknown as number).then(res => {
       setData({
         accessTypes: res.data.accessTypes,
-        content: res.data.content,
+        content: <>{res.data.content.split("\n").map((i: string) => i === "" ? <><br /></> : <p>{i}</p>)}</>,
         id: res.data.id,
         imgUrl: res.data.imgUrl !== null ? res.data.imgUrl : [],
         location: res.data.location,
@@ -75,7 +75,10 @@ export const Detail = () => {
   return <_.Wrapper>
     <_.ContentBox>
       <_.Texts size={1.5} color="--main700">#{data.types}_{data.location}</_.Texts>
-      <_.Texts size={2.125} color="--gray800">{data.title}</_.Texts>
+      <_.TitleBox>
+        <_.Texts size={2.125} color="--gray800">{data.title}</_.Texts>
+        <_.Texts size={1.225} color="--gray700">{data.accountId}</_.Texts>
+      </_.TitleBox>
       <_.Line />
       <_.Data>{data.content}</_.Data>
       <_.Line />

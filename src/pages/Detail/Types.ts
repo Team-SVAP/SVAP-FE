@@ -1,6 +1,6 @@
 export interface IData {
   accessTypes: string;
-  content: string;
+  content: React.ReactNode;
   id: number;
   imgUrl: [];
   location: string;
