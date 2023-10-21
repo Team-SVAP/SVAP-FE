@@ -26,7 +26,7 @@ export const Main = () => {
         setFade(fade => !fade)
         setSlide(slide => slide === 1 ? slide+1 : slide-1);
       }, 400)
-    }, 5000);
+    }, 3000);
     
     return(() => {
       clearInterval(count);
@@ -54,7 +54,7 @@ export const Main = () => {
 
   return <>
     <_.SlideBox>
-      <_.SlideItem src={`${imgPath.Sl}/${slide}.png`} key={fade ? 0 : 1} fade={fade} onClick={() => navigate(slide === 1 ? "/" : "/accessAll")}/>
+      <_.SlideItem src={`${imgPath.Sl}/${slide}.png`} key={fade ? 0 : 1} fade={fade} onClick={() => navigate(slide === 1 ? "/" : "/watch/all")}/>
     </_.SlideBox>
 
     <SearchBar width="45%" />
@@ -73,7 +73,7 @@ export const Main = () => {
     <_.Posts>
       <_.PostsTitle>
         <h1>인기 청원</h1>
-        <Link to="/search/best">더보기</Link>
+        <Link to="/watch/all">더보기</Link>
       </_.PostsTitle>
       <_.PostsData>
         <h1>{best.title}</h1>
