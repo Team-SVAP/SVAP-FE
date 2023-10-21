@@ -40,3 +40,9 @@ export interface IPost {
 export interface ISearch {
   width: string;
 }
+
+export interface IDropdown {
+  clicked: boolean;
+  selected: string;
+  action: (e: React.MouseEvent<HTMLHeadingElement>) => void;
+}
