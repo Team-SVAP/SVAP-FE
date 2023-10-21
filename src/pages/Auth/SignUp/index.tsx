@@ -33,7 +33,9 @@ export const SignUp = () => {
     if(e.currentTarget.id !== "confirm") { 
       setData({ ...data, [e.currentTarget.id]: e.currentTarget.value});
     }
-    else setConfirm(e.currentTarget.value);
+    else { 
+      setConfirm(e.currentTarget.value);
+    }
   }
 
   const handleSubmit = () => {
@@ -45,11 +47,13 @@ export const SignUp = () => {
 
   const handleNext = () => {
     if(cnt === 1) {
-      getDuplication({ accountId: data.accountId }).then(res => {
+      getDuplication({ accountId: data.accountId }).then(() => {
         setCnt(cnt => cnt+1);
       }).catch(() => {});
     }
-    else setCnt(cnt => cnt+1);
+    else { 
+      setCnt(cnt => cnt+1);
+    }
   }
 
   return <>
@@ -61,8 +65,19 @@ export const SignUp = () => {
       <Main>
         {
           cnt === 1 && <>
-            <Input type="text" placeholder="아이디 (영문 8자 이하)" change={handleChange} id="accountId" width="100%" height="3.438rem" />
-            <Button disabled={len.id <= 8 && len.id >= 1 ? true : false} text="다음" action={handleNext} style={{"alignSelf": "flex-end"}}/>
+            <Input 
+              type="text" 
+              placeholder="아이디 (영문 8자 이하)" 
+              change={handleChange} id="accountId" 
+              width="100%" 
+              height="3.438rem" 
+            />
+            <Button
+              disabled={len.id <= 8 && len.id >= 1 ? true : false}
+              text="다음"
+              action={handleNext}
+              style={{"alignSelf": "flex-end"}}
+            />
           </>
         }{
           cnt === 2 && <>
@@ -87,7 +102,7 @@ export const SignUp = () => {
               icon={{"icon":`${imgPath.S}/${visible.confirm ? "Opened.svg" : "Closed.svg"}`, action:() => setVisible({...visible, confirm: visible.confirm ? false : true })}}
             />
             <Button 
-              disabled={len.pw >= 8 && len.id <= 32 && data.password === confirm && data.password.match(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g) ? true : false} 
+              disabled={len.pw >= 8 && len.id <= 32 && data.password === confirm && data.password.match(/[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g) ? true : false} 
               text="다음" 
               action={handleNext} 
               style={{"alignSelf": "flex-end"}}

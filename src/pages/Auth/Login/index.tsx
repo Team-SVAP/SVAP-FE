@@ -41,18 +41,34 @@ export const Login = () => {
     <Wrapper>
       <Header>Log in</Header>
       <Main>
-        <Input placeholder="아이디" value={data.accountId} change={change} id="accountId" width="100%" height="3.438rem" />
-        <Input 
+        <Input // ID
+          placeholder="아이디" 
+          value={data.accountId} 
+          change={change} 
+          id="accountId" 
+          width="100%"
+          height="3.438rem" />
+        <Input // PW
           type={visible ? "text" : "password"}
           placeholder="비밀번호"
-          value={data.password} 
+          value={data.password}
           change={change}
           id="password"
           width="100%"
           height="3.438rem"
-          icon={{"icon":`${imgPath.S}/${visible ? "Opened.svg" : "Closed.svg"}`, action:() => setVisible(visible ? false : true)}}
+          icon={
+            {
+              "icon": `${imgPath.S}/${visible ? "Opened.svg" : "Closed.svg"}`, 
+              action: () => setVisible(visible ? false : true)
+            }
+          }
         />
-        <Button disabled={data.accountId !== "" && data.password !== "" ? true : false} text="Log in" action={handleLogin} style={{"alignSelf": "flex-end"}}/>
+        <Button // Login
+          disabled={data.accountId !== "" && data.password !== ""} 
+          text="Log in"
+          action={handleLogin}
+          style={{"alignSelf": "flex-end"}}
+        />
       </Main>
       <Footer>아직 가입하지 않으셨나요? <a href="/signup">회원가입</a>또는<a href="/signup_admin">관리자 회원가입</a></Footer>
     </Wrapper>
