@@ -24,11 +24,11 @@ export const SlideBox = styled.div`
   width: 100%;
 `
 
-export const SlideItem = styled.img<{fade: boolean; key: React.Key}>`
+export const SlideItem = styled.img<{fade: boolean | undefined; key: React.Key}>`
   width: 80%;
   height: auto;
   cursor: pointer;
-  animation: ${({fade}) => fade ? fadeOut : fadeIn} 0.5s ease-in-out;
+  animation: ${({fade}) => fade !== undefined && (fade ? fadeOut : fadeIn)} 0.5s;
 `
 
 export const Links = styled.div`
@@ -52,6 +52,7 @@ export const LinkButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   min-width: 280px;
   width: 25.625rem;
   height: 13.125rem;
