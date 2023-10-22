@@ -1,38 +1,57 @@
 import { useSearchParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { SearchBar } from '../components/SearchBar';
-import { imgPath } from '../utils/Paths';
+import { useState, useEffect } from 'react'
+import { Line, Top, Waiting } from "./Watch/Style";
+import { getSearchPosts } from '../apis/Petition';
+import { Post } from '../components/Post';
 
 export const Search = () => {
+  const [data, setData] = useState<any>();
   const [searchParams, ] = useSearchParams();
+  const search = searchParams.get('q');
+  const types: any = {
+    recent: "최신순으로 보기",
+    vote: "투표순으로 보기",
+    access: "승인된 청원만 보기",
+    wait: "검토중인 청원만 보기"
+  }
+
+  useEffect(() => {
+    getSearchPosts(`${search}`).then(res => {
+      setData(res.data);
+    }).catch(() => {})
+  }, [search])
 
   return <Wrapper>
-    <Title>청원보기</Title>
-
-    <SearchBar width="100%" />
-
-    <Middle>
-      <Dropdown>
-        <div><h1>청원순대로 보기</h1><img src={`${imgPath.S}/Left.svg`} alt="" /></div>
-        <Hidden>
-          <h1>투표순으로 보기</h1>
-          <h1>승인된 청원 보기</h1>
-          <h1>검토중인 청원 보기</h1>
-        </Hidden>
-      </Dropdown>
-
-      <Result>'{searchParams.get('q')}'에 대한 검색 결과입니다.</Result>
-    </Middle>
+    <Top>
+      <Title>청원보기</Title>
+      <SearchBar width="100%" />
+      <Result>'{search && search.length < 10 ? search : search?.substring(0, 10)+"..."}'에 대한 검색 결과입니다.</Result>
+      <Line />
+    </Top>
+    <Data>
+      {
+        !data
+        ? <Waiting>결과가 존재하지 않습니다.</Waiting>
+        : <Data>
+          {data.map((i: any) => {
+            return <Post id={i.id} key={i.id} title={i.title} date={i.dateTime} loc={i.types} locDet={i.location} content={i.content} />
+          })}
+        </Data>
+      }
+    </Data>
   </Wrapper>
 }
 
 const Wrapper = styled.div`
   gap: 16px;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   width: 50%;
-  min-width: 36.625rem;
+  min-width: 46.625rem;
+  min-height: 87vh;
 `
 
 const Title = styled.h1`
@@ -47,26 +66,9 @@ const Result = styled.h1`
   font-weight: 600;
 `
 
-const Middle = styled.div`
-  align-self: flex-start;
-  display: flex;
-`
-
-const Dropdown = styled.div`
+const Data = styled.div`
+  gap: 20px;
   display: flex;
   flex-direction: column;
-  background: var(--gray000);
-  & h1 { 
-    font-size: 19px; 
-    color: var(--gray700);
-  }
-  & > div:nth-child(1) {
-    display: flex;
-    gap: 15px;
-  }
-`
-
-const Hidden = styled.div`
-  display: flex;
-  flex-direction: column;
+  align-items: center;
 `

@@ -11,14 +11,14 @@ export interface IPostPetition {
   FormData: FormData;
 }
 
-export const postPetition = async (form: any) => {
-  return await instance.post("/petition", { content: form }, {
-    headers: {
-    "content-type": "multipart/form-data",
-    "boundary": "--imageBoundary"
-    }
-  });
-}
+// export const postPetition = async (form: any) => {
+//   return await instance.post("/petition", { content: form }, {
+//     headers: {
+//     "content-type": "multipart/form-data",
+//     "boundary": "--imageBoundary"
+//     }
+//   });
+// }
 
 export const getPopularPetition = async () => {
   return await instance.get("/petition/popular");
@@ -34,4 +34,8 @@ export const getPostDetail = async (id: number) => {
 
 export const getPosts = async (url: string) => {
   return await instance.get(`/petition/${url}`);
+}
+
+export const getSearchPosts = async (data: string) => {
+  return await instance.post(`/petition/search`, { title: data });
 }
