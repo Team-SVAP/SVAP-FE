@@ -5,7 +5,7 @@ import { getPosts } from '../../apis/Petition';
 import { Post } from '../../components/Post';
 import { imgPath } from '../../utils/Paths';
 import * as _ from './Style';
-import { TypeDropdown } from '../../components/TypeDropdown';
+import { Dropdown } from '../../components/Dropdown';
 
 export const Watch = () => {
   const [select, setSelect] = useState("recent");
@@ -37,7 +37,15 @@ export const Watch = () => {
       <_.Title>청원보기</_.Title>
       <SearchBar width="100%" />
       <_.Middle>
-        <TypeDropdown clicked={clicked} selected={types[select]} action={handleTypes} />
+        <_.DropdownBox clicked={clicked}>
+          <div><h1>{types[select]}</h1><img src={`${imgPath.S}/Left.svg`} alt="" id="arrow"/></div>
+          <_.HiddenBox id="hidden">
+            <h1 onClick={handleTypes} id="recent">최신순으로 보기</h1>
+            <h1 onClick={handleTypes} id="vote">투표순으로 보기</h1>
+            <h1 onClick={handleTypes} id="access">승인된 청원만 보기</h1>
+            <h1 onClick={handleTypes} id="wait">검토중인 청원만 보기</h1>
+          </_.HiddenBox>
+        </_.DropdownBox>
         <_.Selection>
           <Link to="../watch/all" id={path[path.length-1] === "all" ? "selected" : ""}>전체 청원</Link>
           <Link to="../watch/school" id={path[path.length-1] === "school" ? "selected" : ""}>학교 청원</Link>

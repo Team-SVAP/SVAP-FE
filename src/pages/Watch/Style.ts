@@ -53,6 +53,7 @@ export const Data = styled.div`
 `
 
 export const Top = styled.div`
+  width: 100%;
   gap: 25px;
   display: flex;
   align-items: center;
@@ -69,4 +70,46 @@ export const Waiting = styled.h1`
   font-size: 20px;
   font-weight: 600;
   color: var(--gray700);
+`
+
+export const DropdownBox = styled.div<{clicked: boolean}>`
+  width: 185.5px;
+  display: flex;
+  flex-direction: column;
+  background: var(--gray000);
+  padding: 10px;
+  border-radius: 5px;
+  background: #f8f8f8;
+  & h1 { 
+    font-size: 19px; 
+    font-weight: 500;
+    color: var(--gray700);
+    cursor: pointer;
+  }
+  & > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+  }
+  &:hover {
+    background: #f8f8f8;
+    & > div#hidden {
+      display: ${({clicked}) => !clicked && "flex"};
+    }
+    & img#arrow {
+      transform: rotate(-90deg);
+    }
+  }
+`
+
+export const HiddenBox = styled.div`
+  width: inherit;
+  gap: 5px;
+  display: none;
+  background: #f8f8f8;
+  position: absolute;
+  margin-left: -10px;
+  margin-top: 29px;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 0 0 5px 5px;
 `
