@@ -16,7 +16,7 @@ interface IInputContainer {
 export interface IButton {
   text: string;
   style?: object;
-  disabled: boolean;
+  disabled?: boolean;
   action: () => void;
 }
 
@@ -42,7 +42,7 @@ export interface ISearch {
 }
 
 export interface IDropdown {
-  clicked: boolean;
-  selected: string;
-  action: (e: React.MouseEvent<HTMLHeadingElement>) => void;
+  value: any;
+  data: string;
+  action: (e: any) => void;
 }
