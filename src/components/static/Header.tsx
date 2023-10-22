@@ -14,6 +14,7 @@ export const Header = () => {
     cookie.remove("refreshToken");
     cookie.remove("name");
     cookie.remove("role");
+    localStorage.clear();
     navigate("/");
   }
 
