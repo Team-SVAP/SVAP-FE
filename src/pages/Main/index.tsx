@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRecoilValue } from "recoil";
+import { Cookies } from "react-cookie";
+import { toast } from "react-toastify";
 import { getPopularPetition } from "../../apis/Petition";
 import { SearchBar } from "../../components/SearchBar";
 import { imgPath } from "../../utils/Paths";
+import { Modal } from "../../utils/Atoms";
 import { IBest } from "./Types";
 import * as _ from "./Style";
-import { Cookies } from "react-cookie";
-import { toast } from "react-toastify";
 
 export const Main = () => {
   const [best, setBest] = useState<IBest>({
@@ -15,19 +17,28 @@ export const Main = () => {
     id: ""
   })
   const [slide, setSlide] = useState(1);
-  const [fade, setFade] = useState<boolean>(false);
+  const [fade, setFade] = useState<boolean>();
   const navigate = useNavigate();
   const cookie = new Cookies();
+  const first = useRef(true);
+  const Content = useRecoilValue(Modal);
 
-  useEffect(() => {
-    const count = setInterval(() => {
+  const fadeAnim = () => {
+    if(!Content.open) {
+      if(fade === undefined) {
+        setFade(false);
+      }
       setFade(fade => !fade);
       setTimeout(() => {
         setFade(fade => !fade)
         setSlide(slide => slide === 1 ? slide+1 : slide-1);
       }, 400)
-    }, 3000);
-    
+    }
+  }
+
+  useEffect(() => {
+    const count = setInterval(fadeAnim, 3000);
+
     return(() => {
       clearInterval(count);
     })
@@ -37,7 +48,7 @@ export const Main = () => {
     getPopularPetition().then(res => {
       setBest({
         title: res.data.title,
-        content: <>{(res.data.content).replaceAll("\n", <br />)}</>,
+        content: <>{res.data.content.split("\n").map((i: string) => i === "" ? <><br /></> : <p>{i}</p>)}</>,
         id: res.data.id
       })
     })
