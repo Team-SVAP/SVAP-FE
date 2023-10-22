@@ -4,3 +4,11 @@ import { atom } from 'recoil';
 //   key: 'searchData',
 //   default: ''
 // })
+
+export const Modal = atom({
+  key: 'Modal',
+  default: {
+    open: false,
+    data: <></>
+  }
+})
