@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { postPetition } from "../../apis/Petition";
+// import { postPetition } from "../../apis/Petition";
 import { Button } from "../../components/common/Button";
 import { Input } from "../../components/common/Input";
 import { imgPath } from "../../utils/Paths";
 import { IData, IItem } from "./Types";
 import "../../styles/style";
 import * as _ from "./Style";
+import { Dropdown } from "../../components/Dropdown";
 
 const Item = ({ title, value }: IItem) => {
   return <_.ItemBox>
@@ -25,15 +26,18 @@ export const Write = () => {
   });
   const [image, setImage] = useState<any>([]);
   const navigate = useNavigate();
+  const types: any = {
+    SCHOOL: "학교 청원",
+    DORMITORY: "기숙사 청원"
+  }
   const compare = data.title.length >= 5 && data.content.length >= 8 && data.types !== "";
 
   const handleChange = (e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setData({...data, [e.currentTarget.id]: e.currentTarget.value});
   };
 
-  const handleDropdown = (e: React.MouseEvent<HTMLElement>) => {
-    const result = e.currentTarget.innerText;
-    setData({...data, types: result})
+  const handleType = (e: React.MouseEvent<HTMLElement>) => {
+    setData({...data, types: e.currentTarget.id})
   }
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,16 +76,7 @@ export const Write = () => {
       <_.DoubleBox>
         <_.ItemBox>
           <h1><span>*</span>종류</h1>
-          <_.Dropdown>
-            <div id="box">
-              <h1 id="now">{data.types}</h1>
-              <img src={`${imgPath.S}/Left.svg`} alt="" />
-            </div>
-            <div id="hidden">
-              <h1 onClick={handleDropdown}>학교 청원</h1>
-              <h1 onClick={handleDropdown}>기숙사 청원</h1>
-            </div>
-          </_.Dropdown>
+          <Dropdown value={types} data={data.types} action={handleType}/>
         </_.ItemBox>
         <Item 
           title="위치 태그"
