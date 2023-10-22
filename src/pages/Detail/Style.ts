@@ -22,6 +22,13 @@ export const TitleBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  & > div {
+    display: flex;
+    gap: 5px;
+    & img {
+      cursor: pointer;
+    }
+  }
 `
 
 export const InteractionBox = styled.div`
@@ -106,6 +113,53 @@ export const AgreeBox = styled.div`
     font-size: 1rem;
     font-weight: 500;
     color: var(--gray700);
+  }
+`
+
+export const EditBox = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  width: 100%;
+  & > div {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+  }
+  & h1, h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--gray800);
+    &:hover { color: var(--gray600); }
+  }
+  & h2 {
+    color: #FF6161;
+    &:hover { color: #FF8987; }
+  }
+`
+
+export const AdminBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  & h1, h2 {
+    font-weight: 600;
+  }
+  & h1 {
+    font-size: 24px;
+    color: var(--gray800);
+  }
+  & h2 {
+    font-size: 18px;
+    color: var(--gray700);
+    & > span {
+      color: var(--main900)
+    }
+  }
+  & > div#State {
+
+  }
+  & > div#result {
+    
   }
 `
 
