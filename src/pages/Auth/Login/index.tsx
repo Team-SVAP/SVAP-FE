@@ -17,6 +17,7 @@ export const Login = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
   const cookie = new Cookies();
+  const disable = (data.accountId !== "") && (data.password !== "")
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     setData({...data, [e.currentTarget.id]: e.currentTarget.value});
@@ -41,14 +42,14 @@ export const Login = () => {
     <Wrapper>
       <Header>Log in</Header>
       <Main>
-        <Input // ID
+        <Input
           placeholder="아이디" 
           value={data.accountId} 
           change={change} 
           id="accountId" 
           width="100%"
           height="3.438rem" />
-        <Input // PW
+        <Input
           type={visible ? "text" : "password"}
           placeholder="비밀번호"
           value={data.password}
@@ -63,9 +64,9 @@ export const Login = () => {
             }
           }
         />
-        <Button // Login
-          disabled={data.accountId !== "" && data.password !== ""} 
+        <Button
           text="Log in"
+          disabled={disable} 
           action={handleLogin}
           style={{"alignSelf": "flex-end"}}
         />
