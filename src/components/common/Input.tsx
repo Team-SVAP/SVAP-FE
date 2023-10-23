@@ -8,10 +8,6 @@ export const Input = ({ type, value, icon, width, height, id, placeholder, chang
   </Component>
 }
 
-export const TextArea = ({ value, width, height, id, placeholder, change }: ITextArea) => {
-  return <_Textarea value={value} width={width} height={height} id={id} placeholder={placeholder} onChange={change} />
-}
-
 const Component = styled.label<{width:string, height:string}>`
   display: flex;
   align-items: center;
@@ -23,9 +19,4 @@ const Component = styled.label<{width:string, height:string}>`
 const _Input = styled.input`
   width: 100%;
   height: 1.25rem;
-`
-
-const _Textarea = styled.textarea<{width: string, height: string}>`
-  width: ${({width}) => width};
-  height: ${({height}) => height};
 `
