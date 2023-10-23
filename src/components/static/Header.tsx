@@ -2,10 +2,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Cookies } from 'react-cookie';
 import { imgPath } from '../../utils/Paths';
+import { Modal } from '../../utils/Atoms';
+import { Button } from '../common/Button';
+import { useRecoilState } from 'recoil';
+import * as _ from "../../styles/modalStyle";
 
 export const Header = () => {
   const navigate = useNavigate();
   const cookie = new Cookies();
+  const [content, setContent] = useRecoilState(Modal);
   const token = cookie.get("accessToken");
   const role = cookie.get("role") === "ADMIN";
   
@@ -15,14 +20,34 @@ export const Header = () => {
     cookie.remove("name");
     cookie.remove("role");
     localStorage.clear();
+    setModal();
     navigate("/");
+  }
+
+  const LogoutComponent = <>
+    <_.Title>
+      <h1>로그아웃 하시겠습니까?</h1>
+      <h4>다시 로그인해야 합니다</h4>
+    </_.Title>
+    <_.Prompt>
+      <Button text="취소" action={ () => { setModal(); } } style={{background: "white", border: "1px solid var(--main400)", color: "#000"}} />
+      <Button text="확인" action={Logout} />
+    </_.Prompt>
+  </> 
+
+  const setModal = (data?: React.ReactNode) => {
+    document.body.style.overflow = data ? "hidden" : "visible";
+    setContent({
+      open: data ? true : false,
+      data: <>{data && data}</>
+    })
   }
 
   return <Wrapper>
     <Logo src={`${imgPath.P}/Logo.png`} alt="" onClick={() => navigate("/")} />
     {
       !token // 토큰을 확인했을 떄
-      ? <Button to="/login">Login</Button> // 토큰이 없을 경우 (로그인이 안 된 경우)
+      ? <LoginItem to="/login">Login</LoginItem> // 토큰이 없을 경우 (로그인이 안 된 경우)
       : <UserBox> {/* 토큰이 있을 경우 (로그인이 된 경우) */}
         <img src={`${imgPath.S}/User.svg`} alt="" />
         <Dropdown admin={role}>
@@ -42,13 +67,13 @@ export const Header = () => {
 
             ? <div id="Buttons"> {/* 유저일 때 */}
                 <InfoButton to="/my">내 청원</InfoButton> 
-                <h3 onClick={Logout}>로그아웃</h3>
+                <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
             </div>
 
             : <div id="Buttons"> {/* 어드민일 때 */}
                 <InfoButton to="/user">차단 유저 관리</InfoButton>
                 <InfoButton to="/report">신고 관리</InfoButton>
-                <h3 onClick={Logout}>로그아웃</h3>
+                <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
             </div>
           }
         </Dropdown>
@@ -58,6 +83,7 @@ export const Header = () => {
 }
 
 const Wrapper = styled.div`
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -82,7 +108,7 @@ const UserBox = styled.div`
   }
 `
 
-const Button = styled(Link)`
+const LoginItem = styled(Link)`
   cursor: pointer;
   padding: 0.625rem;
   box-sizing: border-box;
@@ -105,7 +131,7 @@ const Dropdown = styled.div<{admin: boolean}>`
   border-radius: 0.938rem;
   border: 0.063rem solid var(--gray200);
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-  margin-top: ${({admin}) => admin ? "13.313" : "13.938"}rem;
+  margin-top: ${({admin}) => admin ? "17.513" : "13.938"}rem;
   & > div#Name{
     display: flex;
     align-items: center;
