@@ -7,6 +7,15 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
+  & > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    & > h2 {
+      font-size: 15px;
+      color: var(--gray700);
+    }
+  }
 `
 
 export const Page = styled.h1`
