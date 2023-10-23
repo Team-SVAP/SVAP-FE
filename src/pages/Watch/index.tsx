@@ -5,13 +5,13 @@ import { getPosts } from '../../apis/Petition';
 import { Post } from '../../components/Post';
 import { imgPath } from '../../utils/Paths';
 import * as _ from './Style';
-import { Dropdown } from '../../components/Dropdown';
 
 export const Watch = () => {
   const [select, setSelect] = useState("recent");
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState<any>();
-  const path = useLocation().pathname.split("/");
+  const loc = useLocation();
+  const path = loc.pathname.split("/")
   const types: any = {
     recent: "최신순으로 보기",
     vote: "투표순으로 보기",
@@ -30,7 +30,7 @@ export const Watch = () => {
     getPosts(`${select}${tmp === "all" ? "-all" : `/${tmp.toUpperCase()}`}`).then(res => {
       setData(res.data);
     }).catch(() => {})
-  }, [select, path])
+  }, [select, loc])
 
   return <_.Wrapper>
     <_.Top>
