@@ -1,12 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
 import { toast } from "react-toastify";
 import { getPopularPetition } from "../../apis/Petition";
 import { SearchBar } from "../../components/SearchBar";
 import { imgPath } from "../../utils/Paths";
-import { Modal } from "../../utils/Atoms";
 import { IBest } from "./Types";
 import * as _ from "./Style";
 
@@ -20,20 +18,16 @@ export const Main = () => {
   const [fade, setFade] = useState<boolean>();
   const navigate = useNavigate();
   const cookie = new Cookies();
-  const first = useRef(true);
-  const Content = useRecoilValue(Modal);
 
   const fadeAnim = () => {
-    if(!Content.open) {
-      if(fade === undefined) {
-        setFade(false);
-      }
-      setFade(fade => !fade);
-      setTimeout(() => {
-        setFade(fade => !fade)
-        setSlide(slide => slide === 1 ? slide+1 : slide-1);
-      }, 400)
+    if(fade === undefined) {
+      setFade(false);
     }
+    setFade(fade => !fade);
+    setTimeout(() => {
+      setFade(fade => !fade)
+      setSlide(slide => slide === 1 ? slide+1 : slide-1);
+    }, 200)
   }
 
   useEffect(() => {
