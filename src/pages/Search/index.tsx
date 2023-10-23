@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom';
-import { styled } from 'styled-components';
 import { SearchBar } from '../../components/SearchBar';
 import { useState, useEffect } from 'react'
 import { Line, Top, Waiting } from "../Watch/Style";
@@ -11,12 +10,6 @@ export const Search = () => {
   const [data, setData] = useState<any>();
   const [searchParams, ] = useSearchParams();
   const search = searchParams.get('q');
-  const types: any = {
-    recent: "최신순으로 보기",
-    vote: "투표순으로 보기",
-    access: "승인된 청원만 보기",
-    wait: "검토중인 청원만 보기"
-  }
 
   useEffect(() => {
     getSearchPosts(`${search}`).then(res => {
