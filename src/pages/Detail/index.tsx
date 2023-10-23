@@ -1,20 +1,27 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Cookies } from "react-cookie";
-import { getPostDetail } from "../../apis/Petition";
+import { deletePost, getPostDetail } from "../../apis/Petition";
 import { Button } from "../../components/common/Button";
 import { postReport } from "../../apis/Report";
 import { imgPath } from "../../utils/Paths";
 import { postVote } from "../../apis/Vote";
 import { IData } from "./Types";
+import * as m from "../../styles/modalStyle";
 import * as _ from "./Style";
 import { Dropdown } from "../../components/Dropdown";
+import { Modal } from "../../utils/Atoms";
+import { useRecoilState } from "recoil";
+import { postBan } from "../../apis/Ban";
 
 export const Detail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const [content, setContent] = useRecoilState(Modal);
   const [, setAgreed] = useState<boolean>(false);
   const [cnt, setCnt] = useState<number>(0);
+  const [ban, setBan] = useState("");
   const [data, setData] = useState<IData>({
     accessTypes: "",
     content: <></>,
@@ -24,7 +31,6 @@ export const Detail = () => {
     date: "",
     title: "",
     types: "",
-    userId: 0,
     viewCounts: 0,
     voteCounts: 0,
     accountId: ""
@@ -40,7 +46,6 @@ export const Detail = () => {
     WAITING: "wait",
     APPROVAL: "access"
   }
-
   useEffect(() => {
     getPostDetail(id as unknown as number).then(res => {
       setData({
@@ -52,13 +57,14 @@ export const Detail = () => {
         date: res.data.dateTime,
         title: res.data.title,
         types: res.data.types === "SCHOOL" ? "학교" : "기숙사",
-        userId: res.data.UserId,
         viewCounts: res.data.viewCounts,
         voteCounts: res.data.voteCounts,
         accountId: res.data.accountId
       })
     }).catch(() => {})
   }, [])
+
+  console.log(data);
 
   const handleCnt = (e: React.MouseEvent<HTMLImageElement>) => {
     if(e.currentTarget.id === "left") {
@@ -89,6 +95,57 @@ export const Detail = () => {
     setData({...data, accessTypes: e.currentTarget.id});
   }
 
+  const handleDelete = () => {
+    setModal();
+    deletePost(id as unknown as number).then(() => {
+      toast.success(<b>{id}번 글을 삭제했습니다.</b>)
+      navigate("/watch/all");
+    }).catch(() => {})
+  }
+
+  const handleBan = () => {
+    setModal();
+    postBan(data.accountId, ban).then(() => {
+      toast.success(<b>{data.accountId}를 차단하였습니다</b>)
+      navigate("/watch/all");
+    }).catch(() => {});
+  }
+
+  const handleBanInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setBan(e.currentTarget.value);
+  }
+
+  const DeleteComponent = <>
+    <m.Title>
+      <h1>글을 삭제하시겠습니까?</h1>
+      <h4>해당 작업은 되돌릴 수 없습니다</h4>
+    </m.Title>
+    <m.Prompt>
+      <Button text="취소" action={() => setModal()} style={{background: "white", border: "1px solid var(--main400)", color: "#000"}} />
+      <Button text="확인" action={handleDelete} />
+    </m.Prompt>
+  </> 
+
+  const BanComponent = <>
+  <m.Title>
+    <h1>해당 유저를 차단하시겠습니까?</h1>
+    <h4>해당 유저는 앞으로 로그인할 수 없게 됩니다</h4>
+  </m.Title>
+  <m.AreaInput placeholder="밴 사유를 입력하세요" onChange={handleBanInput} />
+  <m.Prompt>
+    <Button text="취소" action={() => setModal()} style={{background: "white", border: "1px solid var(--main400)", color: "#000"}} />
+    <Button text="확인" action={handleBan} />
+  </m.Prompt>
+  </> 
+
+  const setModal = (data?: React.ReactNode) => {
+    document.body.style.overflow = data ? "hidden" : "visible";
+    setContent({
+      open: data ? true : false,
+      data: <>{data && data}</>
+    })
+  }
+
   return <_.Wrapper>
     <_.ContentBox>
       <_.Texts size={1.5} color="--main700">#{data.types}_{data.location}</_.Texts>
@@ -96,7 +153,7 @@ export const Detail = () => {
         <_.Texts size={2.125} color="--gray800">{data.title}</_.Texts>
         <div>
           <_.Texts size={1.225} color="--gray700">{data.accountId}</_.Texts>
-          { cookie.get("role") === "ADMIN" && <img src={`${imgPath.S}/Ban.svg`} alt="" title="유저 차단하기" />}
+          { cookie.get("role") === "ADMIN" && <img src={`${imgPath.S}/Ban.svg`} alt="" title="유저 차단하기" onClick={() => setModal(BanComponent)} />}
         </div>
       </_.TitleBox>
       <_.Line />
@@ -144,10 +201,12 @@ export const Detail = () => {
             {
               cookie.get("role") === "STUDENT"
               ? <>
-                <h1>청원 투표하기</h1>
-                <h2>이 청원과 같은 생각이라면 찬성 버튼을 눌러주세요.</h2>
+                <div id="TextBox">
+                  <h1>청원 투표하기</h1>
+                  <h2>이 청원과 같은 생각이라면 찬성 버튼을 눌러주세요.</h2>
+                </div>
                 <Button 
-                  disabled={data.accessTypes === "NORMAL" && localStorage.getItem(`agree${id}`) !== "true"}
+                  disabled={data.accessTypes === "normal" && localStorage.getItem(`agree${id}`) !== "true"}
                   text="찬성" 
                   action={handleAgree}
                   style={{"width": "100%", "border-radius": "10px"}}
@@ -175,7 +234,7 @@ export const Detail = () => {
                     <img src={`${imgPath.S}/Edit.svg`} alt="" />
                   </div>
                   <div>
-                    <h2>삭제하기</h2>
+                    <h2 onClick={() => setModal(DeleteComponent)}>삭제하기</h2>
                     <img src={`${imgPath.S}/Erase.svg`} alt="" />
                   </div>
                 </_.EditBox>

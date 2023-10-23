@@ -104,15 +104,20 @@ export const AgreeBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  & > h1 {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: var(--gray800);
-  }
-  & > h2 {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--gray700);
+  & > div#TextBox {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    & > h1 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--gray800);
+    }
+    & > h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gray700);
+    }
   }
 `
 

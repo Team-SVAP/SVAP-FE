@@ -7,7 +7,6 @@ export interface IData {
   date: string;
   title: string;
   types: string;
-  userId: number;
   viewCounts: number;
   voteCounts: number;
   accountId: string;
