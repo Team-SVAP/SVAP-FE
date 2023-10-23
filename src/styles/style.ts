@@ -12,10 +12,6 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "IBM Plex Sans KR";
   }
 
-  body {
-    transition: none;
-  }
-
   label, textarea {
     cursor: text;
     border-radius: 1rem;
@@ -36,7 +32,12 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  body { 
+    transition: none; 
+  }
+
   textarea {
+    resize: none;
     padding: 1rem 1.25rem 1rem 1.25rem;
   }
 `
