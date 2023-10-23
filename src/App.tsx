@@ -3,7 +3,7 @@ import { CookiesProvider } from 'react-cookie';
 import { RecoilRoot } from 'recoil';
 import { GlobalStyle } from './styles/style';
 import { Router } from './router/Router';
-import { ModalProvider } from './utils/Modal/ModalProvider';
+import { ModalProvider } from './utils/ModalProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {

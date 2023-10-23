@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Modal } from "../Atoms";
+import { Modal } from "./Atoms";
 
 interface IModal {
   children: React.ReactNode
@@ -22,6 +22,17 @@ export const ModalProvider = ({ children }: IModal) => {
   </>
 }
 
+const Wrapper = styled.div`
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+`
+
 const ModalBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,19 +42,10 @@ const ModalBox = styled.div`
   min-height: 360px;
   height: auto;
   border-radius: 15px;
+  gap: 20px;
   border: 1px solid var(--gray400);
   box-shadow: 2px 0 4px var(--gray500);
   background: white;
   box-sizing: border-box;
   padding: 60px;
-`
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
 `
