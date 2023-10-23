@@ -48,7 +48,6 @@ export const ItemBox = styled.div`
 
 export const AreaInput = styled.textarea`
   width: 100%;
-  resize: none;
   height: 16.875rem;
 `
 
