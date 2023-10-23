@@ -15,8 +15,14 @@ export const postSignUp = async (Data: IAuth) => {
   return await instance.post("/user/signup", Data);
 }
 
-export const postASignUp = async (Data: IAuth) => {
-  return await instance.post("/user/admin/signup", Data);
+export const postAdminSignUp = async (Data: IAuth, code: string) => {
+  const data = {
+    userName: Data.userName,
+    accountId: Data.accountId,
+    password: Data.password,
+    code: code
+  }
+  return await instance.post("/user/admin/signup", data);
 }
 
 export const getDuplication = async (Data: IAuth) => {
