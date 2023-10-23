@@ -23,6 +23,7 @@ export const Dropdown = ({value, data, action}: IDropdown) => {
 }
 
 export const DropdownBox = styled.div<{click: boolean}>`
+  z-index: 888;
   display: flex;
   position: relative;
   align-items: center;
