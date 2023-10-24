@@ -1,3 +1,4 @@
+import { IData } from "../../pages/Write/Types";
 import { instance } from "../Axios";
 
 export interface IPostPetition {
@@ -26,4 +27,12 @@ export const getSearchPosts = async (data: string) => {
 
 export const deletePost = async (id: number) => {
   return await instance.delete(`/petition/${id}`);
+}
+
+export const patchPost = async (data: IData, id: number) => {
+  return await instance.patch(`/petition/${id}`, data);
+}
+
+export const patchState = async (state: string, id: number) => {
+  return await instance.patch(`/petition/${state}/${id}`);
 }
