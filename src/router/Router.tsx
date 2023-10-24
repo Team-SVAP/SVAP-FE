@@ -11,6 +11,7 @@ import { Write } from "../pages/Write";
 import { Watch } from "../pages/Watch";
 import { Main } from "../pages/Main";
 import { My } from "../pages/My";
+import { Admin } from "../pages/Admin";
 
 export const Router = () => {
   return <BrowserRouter>
@@ -26,6 +27,7 @@ export const Router = () => {
           <Route path="/watch/:page" element={<Watch />} />
           <Route path="/posts/:id" element={<Detail />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Error/>} />
         </Routes>
       </Page>

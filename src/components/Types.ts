@@ -46,3 +46,16 @@ export interface IDropdown {
   data: string;
   action: (e: any) => void;
 }
+
+export interface IAdmin {
+  title?: string;
+  petitionId?: string;
+  reportTime?: string;
+  user: boolean;
+  userId?: number;
+  banReason?: string;
+  bannedTime?: string;
+  userName?: string;
+  bannedBy?: string;
+  modal?: (i: React.ReactNode) => void;
+}

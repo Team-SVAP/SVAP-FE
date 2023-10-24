@@ -4,13 +4,13 @@ import { Cookies } from 'react-cookie';
 import { imgPath } from '../../utils/Paths';
 import { Modal } from '../../utils/Atoms';
 import { Button } from '../common/Button';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import * as _ from "../../styles/modalStyle";
 
 export const Header = () => {
   const navigate = useNavigate();
   const cookie = new Cookies();
-  const [content, setContent] = useRecoilState(Modal);
+  const setContent = useSetRecoilState(Modal);
   const token = cookie.get("accessToken");
   const role = cookie.get("role") === "ADMIN";
   
@@ -51,31 +51,15 @@ export const Header = () => {
       : <UserBox> {/* 토큰이 있을 경우 (로그인이 된 경우) */}
         <img src={`${imgPath.S}/User.svg`} alt="" />
         <Dropdown admin={role}>
-          { !role 
-            ? <div id="Name"> {/* 유저일 때 */}
-              <h1>{decodeURI(cookie.get("name"))}</h1>
-            </div>
-
-            : <div id="Name"> {/* 어드민일 때 */}
-              <h1>{decodeURI(cookie.get("name"))}</h1>
-              <h2>(관리자)</h2>
-            </div>
-          }
+          <div id="Name">
+            <h1>{decodeURI(cookie.get("name"))}</h1>
+            { role && <h2>(관리자)</h2> }
+          </div>
           <Line />
-          {
-            !role // 계정의 역할이 어드민인가? (true: 어드민, false: 유저)
-
-            ? <div id="Buttons"> {/* 유저일 때 */}
-                <InfoButton to="/my">내 청원</InfoButton> 
-                <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
-            </div>
-
-            : <div id="Buttons"> {/* 어드민일 때 */}
-                <InfoButton to="/user">차단 유저 관리</InfoButton>
-                <InfoButton to="/report">신고 관리</InfoButton>
-                <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
-            </div>
-          }
+          <div id="Buttons">
+              <InfoButton to={!role ? "/my" : "/admin"}>{!role ? "내 청원": "관리 페이지"}</InfoButton>
+              <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
+          </div>
         </Dropdown>
       </UserBox>
     }
@@ -131,7 +115,7 @@ const Dropdown = styled.div<{admin: boolean}>`
   border-radius: 0.938rem;
   border: 0.063rem solid var(--gray200);
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-  margin-top: ${({admin}) => admin ? "17.513" : "13.938"}rem;
+  margin-top: ${({admin}) => admin ? "15.938" : "13.938"}rem;
   & > div#Name{
     display: flex;
     align-items: center;
