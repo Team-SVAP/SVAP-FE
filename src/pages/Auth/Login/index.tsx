@@ -20,7 +20,8 @@ export const Login = () => {
   const disable = (data.accountId !== "") && (data.password !== "")
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
-    setData({...data, [e.currentTarget.id]: e.currentTarget.value});
+    const {id, value} = e.currentTarget;
+    setData({...data, [id]: value});
   };
 
   const handleLogin = () => {
@@ -31,6 +32,7 @@ export const Login = () => {
         getInfo().then(res => {
           cookie.set("name", res.data.userName);
           cookie.set("role", res.data.role);
+          cookie.set("accountId", res.data.accountId);
           navigate("/");
           toast.success(<b>성공적으로 로그인되었습니다</b>);
         })
