@@ -42,7 +42,7 @@ export const Main = () => {
     getPopularPetition().then(res => {
       setBest({
         title: res.data.title,
-        content: <>{res.data.content.split("\n").map((i: string) => i === "" ? <><br /></> : <p>{i}</p>)}</>,
+        content: <>{res.data.content.split("\n").map((i: string, key: number) => i === "" ? <><br /></> : <p key={key}>{i}</p>)}</>,
         id: res.data.id
       })
     })
