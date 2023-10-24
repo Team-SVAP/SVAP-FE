@@ -105,7 +105,7 @@ export const AgreeBox = styled.div`
   flex-direction: column;
   width: 100%;
   & > div#TextBox {
-    gap: 10px;
+    gap: 5px;
     display: flex;
     flex-direction: column;
     & > h1 {
@@ -130,20 +130,19 @@ export const EditBox = styled.div`
     gap: 10px;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover { filter: invert(20%) }
   }
   & h1, h2 {
     font-size: 20px;
     font-weight: 500;
     color: var(--gray800);
-    &:hover { color: var(--gray600); }
   }
-  & h2 {
-    color: #FF6161;
-    &:hover { color: #FF8987; }
-  }
+  & h2 { color: #FF6161; }
 `
 
 export const AdminBox = styled.div`
+  gap: 15px;
   display: flex;
   flex-direction: column;
   & h1, h2 {
