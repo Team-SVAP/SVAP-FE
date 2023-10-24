@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { postPetition } from "../../apis/Petition";
 import { Button } from "../../components/common/Button";
 import { Input } from "../../components/common/Input";
@@ -9,6 +9,7 @@ import { IData, IItem } from "./Types";
 import "../../styles/style";
 import * as _ from "./Style";
 import { Dropdown } from "../../components/Dropdown";
+import { getPostDetail, patchPost } from "../../apis/Petition";
 
 const Item = ({ title, value }: IItem) => {
   return <_.ItemBox>
@@ -31,6 +32,22 @@ export const Write = () => {
     DORMITORY: "기숙사 청원"
   }
   const compare = data.title.length >= 5 && data.content.length >= 8 && data.types !== "";
+  const [searchParams, ] = useSearchParams();
+  const edit = searchParams.get('e');
+
+  useEffect(() => {
+    if(edit) {
+      const id = searchParams.get('id');
+      getPostDetail(id as unknown as number).then(res => {
+        setData({
+          title: res.data.title,
+          content: res.data.content,
+          types: res.data.types,
+          location: res.data.location
+        })
+      })
+    }
+  }, [])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setData({...data, [e.currentTarget.id]: e.currentTarget.value});
@@ -50,18 +67,23 @@ export const Write = () => {
     }
   }
 
-  // const submit = () => {
+  const handleEdit = () => {
+    const id = searchParams.get('id');
+    patchPost(data, id as unknown as number).then(() => {
+      toast.success(`${id}번 청원을 수정하였습니다`);
+      navigate(`../posts/${id}`);
+    })
+  }
+  
+  const submit = () => {
   //   const form = new FormData();
-  //   form.append("content", data);
   //   form.append("image", image);
-  //   for(let i in form.values()) {
-  //     console.log(i);
-  //   }
-  //   postPetition(form).then(() => {
+  //   console.log(form);
+  //   postPetition(form, data).then(() => {
   //     navigate("/");
   //     toast.success("청원이 게시되었습니다!");
-  //   }).catch(() => {})
-  // }
+  //   }).catch(err => console.log(err))
+  }
 
   return <_.Wrapper>
     <_.Title>
@@ -85,11 +107,13 @@ export const Write = () => {
       </_.DoubleBox>
       <Item
         title="내용" 
-        value={<_.AreaInput value={data.content} id="content" onChange={handleChange}/>} 
+        value={<_.AreaInput value={data.content} id="content" placeholder="청원의 내용을 입력하세요" onChange={handleChange}/>} 
       />
       <_.ItemBox>
         <h1>사진</h1>
-        <_.Image>
+        {
+          !edit 
+          ? <_.Image>
           {
             image.length === 0
             ? "파일 첨부하기"
@@ -99,8 +123,10 @@ export const Write = () => {
           }
           <input type="file" multiple onChange={handleImage} accept="image/png, image/jpeg, image/jpg" />
         </_.Image>
+        : <_.Image>이미지는 수정할 수 없어요</_.Image>
+        }
       </_.ItemBox>
     </_.Interaction>
-    <Button disabled={compare ? true : false} text="청원하기" action={() => {}} style={{"placeSelf": "center end"}}/>
+    <Button disabled={compare ? true : false} text={!edit ? "청원하기" : "수정하기"} action={!edit ? submit : handleEdit} style={{"placeSelf": "center end"}}/>
   </_.Wrapper>
 }
