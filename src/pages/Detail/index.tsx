@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { Cookies } from "react-cookie";
-import { deletePost, getPostDetail } from "../../apis/Petition";
+import { deletePost, getPostDetail, patchState } from "../../apis/Petition";
 import { Button } from "../../components/common/Button";
 import { postReport } from "../../apis/Report";
 import { imgPath } from "../../utils/Paths";
@@ -12,16 +12,15 @@ import * as m from "../../styles/modalStyle";
 import * as _ from "./Style";
 import { Dropdown } from "../../components/Dropdown";
 import { Modal } from "../../utils/Atoms";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { postBan } from "../../apis/Ban";
 
 export const Detail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [content, setContent] = useRecoilState(Modal);
+  const setContent = useSetRecoilState(Modal);
   const [, setAgreed] = useState<boolean>(false);
   const [cnt, setCnt] = useState<number>(0);
-  const [ban, setBan] = useState("");
   const [data, setData] = useState<IData>({
     accessTypes: "",
     content: <></>,
@@ -46,11 +45,13 @@ export const Detail = () => {
     WAITING: "wait",
     APPROVAL: "access"
   }
+  const ban = useRef("");
+
   useEffect(() => {
     getPostDetail(id as unknown as number).then(res => {
       setData({
         accessTypes: typesData[res.data.accessTypes],
-        content: <>{res.data.content.split("\n").map((i: string) => i === "" ? <><br /></> : <p>{i}</p>)}</>,
+        content: <>{res.data.content.split("\n").map((i: string, key: number) => i === "" ? <><br /></> : <p key={key}>{i}</p>)}</>,
         id: res.data.id,
         imgUrl: res.data.imgUrl !== null ? res.data.imgUrl : [],
         location: res.data.location,
@@ -63,8 +64,6 @@ export const Detail = () => {
       })
     }).catch(() => {})
   }, [])
-
-  console.log(data);
 
   const handleCnt = (e: React.MouseEvent<HTMLImageElement>) => {
     if(e.currentTarget.id === "left") {
@@ -92,7 +91,11 @@ export const Detail = () => {
   }
 
   const handleTypes = (e: React.MouseEvent<HTMLElement>) => {
+    const tmp = e.currentTarget.id;
     setData({...data, accessTypes: e.currentTarget.id});
+    patchState(e.currentTarget.id, id as unknown as number).then(() => {
+      toast.success(<b>상태를 {types[tmp]}(으)로 변경하였습니다</b>)
+    })
   }
 
   const handleDelete = () => {
@@ -105,14 +108,15 @@ export const Detail = () => {
 
   const handleBan = () => {
     setModal();
-    postBan(data.accountId, ban).then(() => {
+    console.log(ban.current);
+    postBan(data.accountId, ban.current).then(() => {
       toast.success(<b>{data.accountId}를 차단하였습니다</b>)
       navigate("/watch/all");
     }).catch(() => {});
   }
 
   const handleBanInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    setBan(e.currentTarget.value);
+    ban.current = e.currentTarget.value;
   }
 
   const DeleteComponent = <>
@@ -230,7 +234,7 @@ export const Detail = () => {
               : <>
                 <_.EditBox>
                   <div>
-                    <h1>수정하기</h1>
+                    <h1 onClick={() => navigate(`../write?e=true&id=${id}`)}>수정하기</h1>
                     <img src={`${imgPath.S}/Edit.svg`} alt="" />
                   </div>
                   <div>
