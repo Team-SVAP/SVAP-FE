@@ -14,6 +14,9 @@ const Component = styled.label<{width:string, height:string}>`
   justify-content: space-between;
   width: ${({width}) => width};
   height: ${({height}) => height};
+  & > img {
+    cursor: pointer
+  }
 `
 
 const _Input = styled.input`
