@@ -1,23 +1,23 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Cookies } from 'react-cookie';
-import { useState } from 'react';
-import { getInfo, postLogin } from '../../../apis/Auth/index';
-import { Button } from '../../../components/common/Button';
-import { Input } from '../../../components/common/Input';
-import { Wrapper, Header, Footer, Main } from '../Style';
-import { imgPath } from '../../../utils/Paths';
-import { IData } from '../Types';
+import { Cookies } from "react-cookie";
+import { useState } from "react";
+import { Wrapper, HeaderBox, FooterBox, MainBox } from "../Style";
+import { getInfo, postLogin } from "../../../apis/User/index";
+import { Button } from "../../../components/common/Button";
+import { Input } from "../../../components/common/Input";
+import { imgPath } from "../../../utils/Paths";
+import { IData } from "../Types";
 
 export const Login = () => {
   const [data, setData] = useState<IData>({
     accountId: "",
     password: ""
   })
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
+  const disable = (data.accountId !== "") && (data.password !== "")
   const navigate = useNavigate();
   const cookie = new Cookies();
-  const disable = (data.accountId !== "") && (data.password !== "")
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const {id, value} = e.currentTarget;
@@ -28,7 +28,6 @@ export const Login = () => {
     postLogin(data).then(res => {
       if(res) {
         cookie.set("accessToken", res.data.accessToken);
-        cookie.set("refreshToken", "refreshTEMP");
         getInfo().then(res => {
           cookie.set("name", res.data.userName);
           cookie.set("role", res.data.role);
@@ -42,15 +41,16 @@ export const Login = () => {
 
   return <>
     <Wrapper>
-      <Header>Log in</Header>
-      <Main>
+      <HeaderBox>Log in</HeaderBox>
+      <MainBox>
         <Input
           placeholder="아이디" 
           value={data.accountId} 
           change={change} 
           id="accountId" 
           width="100%"
-          height="3.438rem" />
+          height="3.438rem" 
+        />
         <Input
           type={visible ? "text" : "password"}
           placeholder="비밀번호"
@@ -72,8 +72,8 @@ export const Login = () => {
           action={handleLogin}
           style={{"alignSelf": "flex-end"}}
         />
-      </Main>
-      <Footer>아직 가입하지 않으셨나요? <a href="/signup">회원가입</a>또는<a href="/signup_admin">관리자 회원가입</a></Footer>
+      </MainBox>
+      <FooterBox>아직 가입하지 않으셨나요? <a href="/signup">회원가입</a>또는<a href="/signup?a=true">관리자 회원가입</a></FooterBox>
     </Wrapper>
   </>
 }

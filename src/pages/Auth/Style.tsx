@@ -1,19 +1,19 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
 export const Wrapper = styled.div`
-display: grid;
-grid-template-rows: 1fr 2fr 1fr;
-place-items: center;
-width: 60%;
-max-width: 34.375rem;
-height: 38.125rem;
-padding: 0.625rem 0.925rem 0.625rem 0.925rem;
-border-radius: 1.25rem;
-box-sizing: border-box;
-border: 0.188rem solid var(--main500);
+  display: grid;
+  place-items: center;
+  grid-template-rows: 1fr 2fr 1fr;
+  width: 60%;
+  height: 38.125rem;
+  max-width: 34.375rem;
+  border-radius: 1.25rem;
+  box-sizing: border-box;
+  border: 0.188rem solid var(--main500);
+  padding: 0.625rem 0.925rem 0.625rem 0.925rem;
 `
 
-export const Header = styled.div`
+export const HeaderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,7 @@ export const Header = styled.div`
   color: var(--gray700);
 `
 
-export const Main = styled.div`
+export const MainBox = styled.div`
   gap: 0.625rem;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@ export const Main = styled.div`
   width: 80%;
 `
 
-export const Footer = styled.div`
+export const FooterBox = styled.div`
   display: flex;
   place-self: end auto;
   align-items: flex-end;
@@ -38,7 +38,6 @@ export const Footer = styled.div`
   font-weight: 500;
   color: var(--gray600);
   & > a {
-    transition: 0.2s all;
     margin: 0 0.438rem 0 0.438rem;
     color: var(--main700);
     &:hover { color: var(--main400); }

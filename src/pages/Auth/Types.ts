@@ -3,3 +3,10 @@ export interface IData {
   accountId: string;
   password: string;
 }
+
+export interface IAuth {
+  visible: boolean,
+  confirm: string,
+  code: string,
+  cnt: number
+}
