@@ -7,13 +7,14 @@ export const Button = ({ text, disabled, style, action }: IButton) => {
   </Component>
 }
 
+// Box Components
 const Component = styled.button<{disabled:boolean}>`
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 10.25rem;
   border-radius: 1.25rem;
-  padding: 10px 30px 10px 30px;
+  padding: 0.625rem 1.875rem 0.625rem 1.875rem;
   cursor: ${({disabled}) => !disabled ? "pointer" : "not-allowed"};
   background: var(${({disabled}) => !disabled ? "--main700" : "--main500"});
   color: white;

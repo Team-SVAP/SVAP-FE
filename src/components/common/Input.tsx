@@ -1,25 +1,25 @@
 import { styled } from 'styled-components';
-import { IInput, ITextArea } from '../Types';
+import { IInput } from '../Types';
 
 export const Input = ({ type, value, icon, width, height, id, placeholder, change }: IInput) => {
   return <Component htmlFor={id} width={width} height={height}>
-    <_Input type={type} id={id} placeholder={placeholder} onChange={change} value={value} />
+    <InputItem type={type} id={id} placeholder={placeholder} onChange={change} value={value} />
     { icon && <img src={icon.icon} alt="" onClick={icon.action} /> }
   </Component>
 }
 
+// Box Components
 const Component = styled.label<{width:string, height:string}>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: ${({width}) => width};
   height: ${({height}) => height};
-  & > img {
-    cursor: pointer
-  }
+  & > img { cursor: pointer }
 `
 
-const _Input = styled.input`
+// Atom Components
+const InputItem = styled.input`
   width: 100%;
   height: 1.25rem;
 `
