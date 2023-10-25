@@ -36,8 +36,8 @@ export const InteractionBox = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
   width: 30%;
+  margin-top: 3rem;
 `
 
 export const CountBox = styled.div`
@@ -52,6 +52,7 @@ export const CountBox = styled.div`
 
 export const ImageBox = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: space-between;
@@ -63,6 +64,7 @@ export const ImageBox = styled.div`
     border-radius: 0.938rem;
     border: 0.125rem solid whitesmoke;
     box-shadow: 0.125rem 0.125rem 0.625rem whitesmoke;
+    cursor: pointer;
   }
   & > img#left, img#right {
     padding: 0.625rem;
@@ -78,6 +80,26 @@ export const ImageBox = styled.div`
   & > img#right { 
     align-self: flex-end; 
     &:hover { margin-left: 5px; }
+  }
+  & > div#dots {
+    cursor: pointer;
+    position: absolute;
+    align-self: center;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 10px 0 10px 0;
+    box-sizing: border-box;
+    height: 18.75rem;
+    gap: 5px;
+    & > div {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray600);
+      &#selected { background: var(--gray800); }
+    }
   }
 `
 
@@ -158,12 +180,6 @@ export const AdminBox = styled.div`
     & > span {
       color: var(--main900)
     }
-  }
-  & > div#State {
-
-  }
-  & > div#result {
-    
   }
 `
 
