@@ -27,15 +27,21 @@ const SearchBox = styled.label<{width:string}>`
   min-width: 36.625rem;
   width: ${({width}) => width};
   padding: 0 1.875rem 0 1.875rem;
+  box-sizing: border-box;
   border: 2px solid var(--main900);
   & img { cursor: pointer; } 
   &:hover { background: var(--gray100); }
   &:focus-within { 
     background: var(--gray100); 
-    border: 2px solid var(--main900);
+    border: 0.125rem solid var(--main900);
   }
 `
 
 const Input = styled.input`
   width: 100%;
+  font-size: 23px;
+  color: var(--gray700);
+  &::placeholder {
+    font-size: 23px;
+  }
 `
