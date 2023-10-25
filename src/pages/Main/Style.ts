@@ -24,6 +24,22 @@ export const SlideBox = styled.div`
   width: 100%;
 `
 
+export const CountBox = styled.div`
+  gap: 5px;
+  display: flex;
+  align-self: flex-end;
+  position: absolute;
+  margin-bottom: 10px;
+`
+
+export const Count = styled.div`
+  width: 12px;
+  height: 12px;
+  background: var(--gray500);
+  border-radius: 50%;
+  &#selected { background: var(--gray700); }
+`
+
 export const SlideItem = styled.img<{fade: boolean | undefined; key: React.Key}>`
   width: 80%;
   height: auto;
