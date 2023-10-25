@@ -4,12 +4,17 @@ import { IPost } from './Types';
 
 export const Post = ({ title, date, loc, locDet, content, id }: IPost) => {
   const navigate = useNavigate();
+  const types: any = {
+    SCHOOL: "학교",
+    DORMITORY: "기숙사"
+  }
+
   return <Component onClick={() => navigate(`/posts/${id}`)}>
     <Title>
       {title}
       <Date>{date}</Date>
     </Title>
-    <Type>#{loc}_{locDet}</Type>
+    <Type>#{types[loc]}_{locDet}</Type>
     <Content>{content.length < 90 ? content : content.substring(0, 95)+"..."}</Content>
   </Component>
 }
