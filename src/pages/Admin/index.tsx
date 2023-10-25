@@ -1,10 +1,10 @@
-import { styled } from 'styled-components';
-import { useState, useEffect } from 'react';
-import { getReport } from '../../apis/Report';
-import { AdminBox } from '../../components/AdminBox';
-import { getBan } from '../../apis/Ban';
-import { Modal } from '../../utils/Atoms';
-import { useSetRecoilState } from 'recoil';
+import { useState, useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { AdminBox } from "../../components/AdminBox";
+import { getReport } from "../../apis/Report";
+import { Modal } from "../../utils/Atoms";
+import { getBan } from "../../apis/Ban";
+import * as _ from "./Style";
 
 export const Admin = () => {
   const [reports, setReports] = useState<any[]>();
@@ -12,12 +12,8 @@ export const Admin = () => {
   const setContent = useSetRecoilState(Modal);
 
   useEffect(() => {
-    getReport().then(res => {
-      setReports(res.data);
-    })
-    getBan().then(res => {
-      setBans(res.data);
-    })
+    getReport().then(res => setReports(res.data))
+    getBan().then(res => setBans(res.data))
   }, [])
 
   const setModal = (data?: React.ReactNode) => {
@@ -28,63 +24,39 @@ export const Admin = () => {
     })
   }
 
-  return <Wrapper>  
-    <Box>
-      <Title>신고 받은 청원</Title>
-      <Line />
-      <Scroller>
+  return <_.Wrapper>  
+    <_.ContentBox>
+      <_.TitleItem>신고 받은 청원</_.TitleItem>
+      <_.LineItem />
+      <_.ScrollBox>
         {
-          reports?.map(i => <AdminBox title={i.title} petitionId={i.petitionId} reportTime={i.reportTime} user={true} />)
+          reports?.map(i => <AdminBox 
+            title={i.title} 
+            petitionId={i.petitionId}
+            reportTime={i.reportTime}
+            user={true} 
+            />
+          )
         }
-      </Scroller>
-    </Box>
-    <Box>
-      <Title>차단된 유저</Title>
-      <Line />
-      <Scroller>
+      </_.ScrollBox>
+    </_.ContentBox>
+    <_.ContentBox>
+      <_.TitleItem>차단된 유저</_.TitleItem>
+      <_.LineItem />
+      <_.ScrollBox>
         {
-          bans?.map(i => <AdminBox userId={i.userId} userName={i.userName} bannedBy={i.bannedBy} banReason={i.banReason} bannedTime={i.bannedTime} modal={setModal} user={false} />)
+          bans?.map(i => <AdminBox 
+            userId={i.userId} 
+            userName={i.userName} 
+            bannedBy={i.bannedBy} 
+            banReason={i.banReason} 
+            bannedTime={i.bannedTime} 
+            modal={setModal} 
+            user={false} 
+            />
+          )
         }
-      </Scroller>
-    </Box>
-  </Wrapper>
+      </_.ScrollBox>
+    </_.ContentBox>
+  </_.Wrapper>
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 90%;
-  gap: 50px;
-`
-
-const Box = styled.div`
-  display: flex;
-  align-items: center;
-  width: 40%;
-  height: 80vh;
-  gap: 10px;
-  flex-direction: column;
-`
-
-const Scroller = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 80%;
-  overflow-y: auto;
-`
-
-const Title = styled.div`
-  margin: 10px 0 10px 0;
-  color: var(--gray800);
-  font-size: 38px;
-  font-weight: 600;
-`
-
-const Line = styled.div`
-  width: 100%;
-  max-width: 525px;
-  height: 1px;
-  background: var(--gray800);
-`
