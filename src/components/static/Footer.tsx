@@ -16,7 +16,7 @@ export const Footer = () => {
         </div>
         <div>
           <h1>Android</h1>
-          <a href="https://github.com/">박의엘</a>
+          <a href="https://github.com/parkuiery">박의엘</a>
         </div>
         <div>
           <h1>iOS</h1>
@@ -28,7 +28,9 @@ export const Footer = () => {
         </div>
       </Developers>
       <Logos>
-        <a href="https://github.com/Team-SVAP"> <Git src={`${imgPath.P}/Github.png`} alt="" width="2.813rem" height="2.813rem"/> </a>
+        <a href="https://github.com/Team-SVAP"> 
+          <Git src={`${imgPath.P}/Github.png`} alt="" />
+        </a>
         <Logo src={`${imgPath.P}/LogoWhite.png`} alt="Logo" />
       </Logos>
     </Interactions>
@@ -41,6 +43,7 @@ export const Footer = () => {
   </Wrapper>
 }
 
+// Box Components
 const Wrapper = styled.div`
   gap: 2.188rem;
   display: flex;
@@ -86,7 +89,7 @@ const Developers = styled.div` // 개발자 깃허브 URL
       font-weight: 600;
       font-size: 1.25rem;
     }
-    & a { font-size: 17px; }
+    & a { font-size: 1.063rem; }
   }
 `
 
