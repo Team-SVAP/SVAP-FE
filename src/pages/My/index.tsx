@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMyPost } from "../../apis/Petition";
+import { getMyPost } from "../../apis/User";
 import { Post } from "../../components/Post";
 import { IData } from "./Types";
 import * as _ from "./Style";
