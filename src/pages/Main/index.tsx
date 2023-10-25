@@ -45,12 +45,14 @@ export const Main = () => {
         content: <>{res.data.content.split("\n").map((i: string, key: number) => i === "" ? <><br /></> : <p key={key}>{i}</p>)}</>,
         id: res.data.id
       })
-    })
+    }).catch(() => {})
   }, [])
 
   const handleWrite = () => {
-    if(cookie.get("accessToken")) {
+    if(cookie.get("accessToken") && cookie.get("role") !== "ADMIN") {
       navigate("/write");
+    } else if (cookie.get("role") === "ADMIN") {
+      toast.error("어드민은 청원을 작성할 수 없습니다.");
     } else {
       toast.error("해당 기능은 로그인이 필요합니다");
       navigate("/login");
@@ -60,6 +62,10 @@ export const Main = () => {
   return <>
     <_.SlideBox>
       <_.SlideItem src={`${imgPath.Sl}/${slide}.png`} key={fade ? 0 : 1} fade={fade} onClick={() => navigate(slide === 1 ? "/" : "/watch/all")}/>
+      <_.CountBox>
+        <_.Count id={`${slide === 1 && "selected"}`} />
+        <_.Count id={`${slide === 2 && "selected"}`}/>
+      </_.CountBox>
     </_.SlideBox>
 
     <SearchBar width="45%" />
