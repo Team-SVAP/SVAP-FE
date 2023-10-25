@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-export const Container = styled.div`
+export const HeaderBox = styled.div`
   gap: 5vh;
   display: flex;
   place-self: start;
@@ -12,15 +12,15 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
     & > h2 {
-      font-size: 15px;
+      font-size: 0.938rem;
       color: var(--gray700);
     }
   }
 `
 
-export const Page = styled.h1`
+export const CountItem = styled.h1`
   align-self: flex-end;
-  font-size: 30px;
-  font-weight: 500px;
+  font-size: 1.875rem;
+  font-weight: 31.25rem;
   color: var(--gray600);
 `
