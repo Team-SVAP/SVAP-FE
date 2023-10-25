@@ -8,11 +8,11 @@ import { useSetRecoilState } from 'recoil';
 import * as _ from "../../styles/modalStyle";
 
 export const Header = () => {
+  const setContent = useSetRecoilState(Modal);
   const navigate = useNavigate();
   const cookie = new Cookies();
-  const setContent = useSetRecoilState(Modal);
-  const token = cookie.get("accessToken");
   const role = cookie.get("role") === "ADMIN";
+  const token = cookie.get("accessToken");
   
   const Logout = () => {
     cookie.remove("accessToken");
@@ -46,9 +46,9 @@ export const Header = () => {
   return <Wrapper>
     <Logo src={`${imgPath.P}/Logo.png`} alt="" onClick={() => navigate("/")} />
     {
-      !token // 토큰을 확인했을 떄
-      ? <LoginItem to="/login">Login</LoginItem> // 토큰이 없을 경우 (로그인이 안 된 경우)
-      : <UserBox> {/* 토큰이 있을 경우 (로그인이 된 경우) */}
+      !token
+      ? <Login to="/login">Login</Login> 
+      : <UserBox>
         <img src={`${imgPath.S}/User.svg`} alt="" />
         <Dropdown admin={role}>
           <div id="Name">
@@ -57,8 +57,8 @@ export const Header = () => {
           </div>
           <Line />
           <div id="Buttons">
-              <InfoButton to={!role ? "/my" : "/admin"}>{!role ? "내 청원": "관리 페이지"}</InfoButton>
-              <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
+            <InfoButton to={!role ? "/my" : "/admin"}>{!role ? "내 청원": "관리 페이지"}</InfoButton>
+            <h3 onClick={() => setModal(LogoutComponent)}>로그아웃</h3>
           </div>
         </Dropdown>
       </UserBox>
@@ -67,7 +67,7 @@ export const Header = () => {
 }
 
 const Wrapper = styled.div`
-  z-index: 100;
+  z-index: 888;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -92,7 +92,7 @@ const UserBox = styled.div`
   }
 `
 
-const LoginItem = styled(Link)`
+const Login = styled(Link)`
   cursor: pointer;
   padding: 0.625rem;
   box-sizing: border-box;
@@ -115,7 +115,7 @@ const Dropdown = styled.div<{admin: boolean}>`
   border-radius: 0.938rem;
   border: 0.063rem solid var(--gray200);
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-  margin-top: ${({admin}) => admin ? "15.938" : "13.938"}rem;
+  margin-top: ${({admin}) => admin ? "15.938rem" : "13.938rem"};
   & > div#Name{
     display: flex;
     align-items: center;
