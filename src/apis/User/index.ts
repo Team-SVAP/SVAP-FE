@@ -30,3 +30,7 @@ export const getDuplication = async (Data: IAuth) => { // ID 중복확인
 export const getInfo = async () => { // 유저정보 확인
   return await instance.get("/user/my-info");
 }
+
+export const postRefresh = async (token: string) => { // 토큰 리프레쉬
+  return await instance.post("/user/reissue", { AUTHORIZATION_HEADER: token });
+}

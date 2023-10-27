@@ -28,6 +28,7 @@ export const Login = () => {
     postLogin(data).then(res => {
       if(res) {
         cookie.set("accessToken", res.data.accessToken);
+        cookie.set("refreshToken", res.data.refreshToken);
         getInfo().then(res => {
           cookie.set("name", res.data.userName);
           cookie.set("role", res.data.role);
