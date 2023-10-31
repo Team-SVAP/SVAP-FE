@@ -8,4 +8,5 @@ export interface IData {
   content: string;
   types: string;
   location: string;
+  imageUrl?: Array<any>;
 }

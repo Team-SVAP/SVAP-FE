@@ -1,9 +1,16 @@
 import { IData } from "../../pages/Write/Types";
 import { instance } from "../Axios";
 
-// export const postPost = async () => { // 청원 글 작성
-//   return await instance.post("/petition/");
-// }
+export const postPost = async (data: IData, files?: Array<any>) => { // 청원 글 작성
+  if(files) data.imageUrl = files;
+  return await instance.post("/petition", data);
+}
+
+export const postImage = async (data: FormData) => {
+  return await instance.post("/petition/image", data, { headers: {
+    "Content-Type": "multipart/form-data"
+  }});
+}
 
 export const patchPost = async (data: IData, id: number) => { // 청원 글 수정
   return await instance.patch(`/petition/${id}`, data);

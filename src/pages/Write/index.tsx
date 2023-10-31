@@ -9,7 +9,7 @@ import { IData, IItem } from "./Types";
 import "../../styles/style";
 import * as _ from "./Style";
 import { Dropdown } from "../../components/Dropdown";
-import { getPostDetail, patchPost } from "../../apis/Petition";
+import { getPostDetail, patchPost, postImage, postPost } from "../../apis/Petition";
 
 const Item = ({ title, value }: IItem) => {
   return <_.ItemBox>
@@ -23,7 +23,7 @@ export const Write = () => {
     title: "",
     content: "",
     types: "",
-		location: "",
+		location: ""
   });
   const [image, setImage] = useState<any>([]);
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const Write = () => {
     SCHOOL: "학교 청원",
     DORMITORY: "기숙사 청원"
   }
-  const compare = data.title.length >= 5 && data.content.length >= 8 && data.types !== "";
+  const compare = data.title.length >= 5 && data.content.length >= 8 && data.types !== "" && data.location.length >= 3;
   const [searchParams, ] = useSearchParams();
   const edit = searchParams.get('e');
 
@@ -58,12 +58,11 @@ export const Write = () => {
   }
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const image = e.currentTarget.files;
-    if(image && image.length <= 3) {
-      const imageList = Array.from(e.currentTarget.files || []);
-      setImage(imageList);
+    const images = Array.from(e.currentTarget.files || []);
+    if(images && images.length <= 2) {
+      setImage(images);
     } else {
-      toast.error("사진 첨부는 3개 이하만 가능합니다.");
+      toast.error("사진 첨부는 2개 이하만 가능합니다.");
     }
   }
 
@@ -76,13 +75,23 @@ export const Write = () => {
   }
   
   const submit = () => {
-  //   const form = new FormData();
-  //   form.append("image", image);
-  //   console.log(form);
-  //   postPetition(form, data).then(() => {
-  //     navigate("/");
-  //     toast.success("청원이 게시되었습니다!");
-  //   }).catch(err => console.log(err))
+    if(image.length !== 0) {
+      const form = new FormData();
+      for(let i in image) {
+        form.append("image", image[i]);
+      }
+      postImage(form).then(res => {
+        postPost(data, res.data.imageUrl).then(() => {
+          navigate("/watch/all");
+          toast.success("청원이 등록되었습니다")
+        }).catch()
+      }).catch(() => {})
+    } else {
+      postPost(data).then(() => {
+        navigate("/watch/all");
+        toast.success("청원이 등록되었습니다")
+      }).catch(() => {})
+    }
   }
 
   return <_.Wrapper>
