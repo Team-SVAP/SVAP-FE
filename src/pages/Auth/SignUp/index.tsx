@@ -24,7 +24,7 @@ export const SignUp = () => {
     cnt: 1
   })
   const disable = {
-    id: (data.accountId.length <= 8) && (data.accountId.length >= 1),
+    id: (data.accountId.length >= 8) && (data.accountId.length <= 30),
     pw: (data.password.length) >= 8 && (data.password.match(/[{}[\]/?.,;:)*~`|!^\-_+<>@#$%&\\=("']/g)) && (data.password === auth.confirm),
     name: (data.userName) && (data.userName.length >= 2) && (data.userName.length <= 4),
     code: (auth.code.length >= 1)
@@ -82,7 +82,7 @@ export const SignUp = () => {
           auth.cnt === 1 && <>
             <Input 
               type="text" 
-              placeholder="아이디 (영문 8자 이하)" 
+              placeholder="아이디 (영문 8자 이상, 30자 이하)" 
               change={handleChange} 
               id="accountId" 
               width="100%"
