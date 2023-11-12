@@ -15,7 +15,7 @@ export const Login = () => {
     password: ""
   })
   const [visible, setVisible] = useState(false);
-  const disable = (data.accountId !== "") && (data.password !== "")
+  const disable = (data.accountId !== "") && (data.password !== "") && (data.password.match(/[{}[\]/?.,;:)*~`|!^\-_+<>@#$%&\\=("']/g)) as unknown as boolean;
   const navigate = useNavigate();
   const cookie = new Cookies();
 
