@@ -72,7 +72,7 @@ export const Waiting = styled.h1`
   color: var(--gray700);
 `
 
-export const DropdownBox = styled.div<{clicked: boolean}>`
+export const DropdownBox = styled.div<{$clicked: boolean}>`
   width: 185.5px;
   display: flex;
   flex-direction: column;
@@ -93,7 +93,7 @@ export const DropdownBox = styled.div<{clicked: boolean}>`
   &:hover {
     background: #f8f8f8;
     & > div#hidden {
-      display: ${({clicked}) => !clicked && "flex"};
+      display: ${({$clicked}) => !$clicked && "flex"};
     }
     & img#arrow {
       transform: rotate(-90deg);
