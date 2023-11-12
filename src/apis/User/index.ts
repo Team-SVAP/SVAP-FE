@@ -23,8 +23,12 @@ export const getMyPost = async () => { // 내가 쓴 청원 보기
   return await instance.get("/user");
 }
 
-export const getDuplication = async (Data: IAuth) => { // ID 중복확인
-  return await instance.post("/user/duplication", Data);
+export const getDuplicationId = async (Data: IAuth) => { // ID 중복확인
+  return await instance.post("/user/ck-account-id", Data);
+}
+
+export const getDuplicationName = async (Data: IAuth) => { // ID 중복확인
+  return await instance.post("/user/ck-username", Data);
 }
 
 export const getInfo = async () => { // 유저정보 확인
