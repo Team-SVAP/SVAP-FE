@@ -6,7 +6,7 @@ export const postPost = async (data: IData, files?: Array<any>) => { // 청원 �
   return await instance.post("/petition", data);
 }
 
-export const postImage = async (data: FormData) => {
+export const postImage = async (data: FormData) => { // 이미지 업로드
   return await instance.post("/petition/image", data, { headers: {
     "Content-Type": "multipart/form-data"
   }});
