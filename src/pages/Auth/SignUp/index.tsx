@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Cookies } from "react-cookie";
 import { useState } from "react";
-import { getDuplication, postAdminSignUp, postSignUp } from "../../../apis/User";
+import { getDuplicationId, postAdminSignUp, postSignUp } from "../../../apis/User";
 import { Wrapper, HeaderBox, FooterBox, MainBox } from "../Style";
 import { Button } from "../../../components/common/Button";
 import { Input } from "../../../components/common/Input";
@@ -60,7 +60,7 @@ export const SignUp = () => {
 
   const handleNext = () => {
     if(auth.cnt === 1) {
-      getDuplication({ accountId: data.accountId }).then(() => {
+      getDuplicationId({ accountId: data.accountId }).then(() => {
         setAuth({...auth, cnt: auth.cnt+1 });
       }).catch(() => {});
     } else { 
