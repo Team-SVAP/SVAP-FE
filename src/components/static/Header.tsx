@@ -18,6 +18,7 @@ export const Header = () => {
     cookie.remove("accessToken");
     cookie.remove("refreshToken");
     cookie.remove("name");
+    cookie.remove("accountId");
     cookie.remove("role");
     localStorage.clear();
     setModal();
@@ -50,7 +51,7 @@ export const Header = () => {
       ? <Login to="/login">Login</Login> 
       : <UserBox>
         <img src={`${imgPath.S}/User.svg`} alt="" />
-        <Dropdown admin={role}>
+        <Dropdown $admin={role}>
           <div id="Name">
             <h1>{decodeURI(cookie.get("name"))}</h1>
             { role && <h2>(관리자)</h2> }
@@ -103,7 +104,7 @@ const Login = styled(Link)`
   &:hover { background: var(--gray200); }  
 `
 
-const Dropdown = styled.div<{admin: boolean}>`
+const Dropdown = styled.div<{$admin: boolean}>`
   gap: 0.938rem;
   display: none;
   align-items: center;
@@ -115,7 +116,7 @@ const Dropdown = styled.div<{admin: boolean}>`
   border-radius: 0.938rem;
   border: 0.063rem solid var(--gray200);
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.25);
-  margin-top: ${({admin}) => admin ? "15.938rem" : "13.938rem"};
+  margin-top: ${({$admin}) => $admin ? "15.938rem" : "13.938rem"};
   & > div#Name{
     display: flex;
     align-items: center;
