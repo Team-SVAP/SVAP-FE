@@ -61,7 +61,7 @@ export const Main = () => {
 
   return <>
     <_.SlideBox>
-      <_.SlideItem src={`${imgPath.Sl}/${slide}.png`} key={fade ? 0 : 1} fade={fade} onClick={() => navigate(slide === 1 ? "/" : "/watch/all")}/>
+      <_.SlideItem src={`${imgPath.Sl}/${slide}.png`} key={fade ? 0 : 1} $fade={fade} onClick={() => navigate(slide === 1 ? "/" : "/watch/all")}/>
       <_.CountBox>
         <_.Count id={`${slide === 1 && "selected"}`} />
         <_.Count id={`${slide === 2 && "selected"}`}/>

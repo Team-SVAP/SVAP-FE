@@ -40,11 +40,11 @@ export const Count = styled.div`
   &#selected { background: var(--gray700); }
 `
 
-export const SlideItem = styled.img<{fade: boolean | undefined; key: React.Key}>`
+export const SlideItem = styled.img<{$fade: boolean | undefined; key: React.Key}>`
   width: 80%;
   height: auto;
   cursor: pointer;
-  animation: ${({fade}) => fade !== undefined && (fade ? fadeOut : fadeIn)} 0.5s;
+  animation: ${({$fade}) => $fade !== undefined && ($fade ? fadeOut : fadeIn)} 0.5s;
 `
 
 export const Links = styled.div`
