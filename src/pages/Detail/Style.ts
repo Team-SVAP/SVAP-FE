@@ -70,8 +70,8 @@ export const ImageBox = styled.div`
     padding: 0.625rem;
     cursor: pointer;
     position: absolute;
-    filter: invert(100%);
-    &:hover { filter: invert(50%); }
+    mix-blend-mode: difference;
+    &:hover { mix-blend-mode: normal; }
   }
   & > img#left { 
     align-self: flex-start; 
