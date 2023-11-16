@@ -29,7 +29,7 @@ instance.interceptors.response.use(
       config,
       response: { status },
     } = err;
-    if(status === 403) {
+    if(status === 401) {
       const token = cookie.get("refreshToken");
       postRefresh(token).then(res => {
         cookie.set("accessToken", res.data.accessToken);
