@@ -11,7 +11,6 @@ import * as _ from "./Style";
 import { Dropdown } from "../../components/Dropdown";
 import { getPostDetail, patchPost, postImage, postPost } from "../../apis/Petition";
 import { Id, Toast } from "react-toastify/dist/types";
-import { wait } from "@testing-library/user-event/dist/utils";
 
 const Item = ({ title, value }: IItem) => {
   return <_.ItemBox>
