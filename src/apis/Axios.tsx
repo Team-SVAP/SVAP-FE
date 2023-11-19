@@ -1,9 +1,7 @@
-import { Cookies } from "react-cookie";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Cookie } from "../utils/Utilities";
 import { postRefresh } from "./User";
-
-const cookie = new Cookies();
 
 export const instance = axios.create({
   baseURL: `${process.env.REACT_APP_API_KEY}`,
@@ -12,8 +10,8 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   res => {
-    const token = cookie.get("accessToken");
-    if(token !== undefined) res.headers.Authorization = `Bearer ${cookie.get("accessToken")}`;
+    const token = Cookie.get("accessToken");
+    if(token !== undefined) res.headers.Authorization = `Bearer ${Cookie.get("accessToken")}`;
     return res;
   }, 
   err => {
@@ -30,13 +28,13 @@ instance.interceptors.response.use(
       response: { status },
     } = err;
     if(status === 401) {
-      const token = cookie.get("refreshToken");
+      const token = Cookie.get("refreshToken");
       postRefresh(token).then(res => {
-        cookie.set("accessToken", res.data.accessToken);
-        cookie.set("refreshToken", res.data.refreshToken);
+        Cookie.set("accessToken", res.data.accessToken);
+        Cookie.set("refreshToken", res.data.refreshToken);
         config.headers.Authorization = `Bearer ${res.data.accessToken}`;
         return axios(config);
-      })
+      }).catch(() => {})
     }
     else {
       toast.error(<>

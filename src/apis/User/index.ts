@@ -36,5 +36,5 @@ export const getInfo = async () => { // 유저정보 확인
 }
 
 export const postRefresh = async (token: string) => { // 토큰 리프레쉬
-  return await instance.post("/user/reissue", { AUTHORIZATION_HEADER: token });
+  return await instance.post("/user/reissue", {}, { headers: { "AUTHORIZATION_HEADER": `${token}` } });
 }
