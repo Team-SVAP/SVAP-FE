@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Cookies } from "react-cookie";
 import { toast } from "react-toastify";
 import { getPopularPetition } from "../../apis/Petition";
 import { SearchBar } from "../../components/SearchBar";
+import { Cookie } from "../../utils/Utilities";
 import { imgPath } from "../../utils/Paths";
 import { IBest } from "./Types";
 import * as _ from "./Style";
@@ -17,7 +17,6 @@ export const Main = () => {
   const [slide, setSlide] = useState(1);
   const [fade, setFade] = useState<boolean>();
   const navigate = useNavigate();
-  const cookie = new Cookies();
 
   const fadeAnim = () => {
     if(fade === undefined) {
@@ -49,9 +48,9 @@ export const Main = () => {
   }, [])
 
   const handleWrite = () => {
-    if(cookie.get("accessToken") && cookie.get("role") !== "ADMIN") {
+    if(Cookie.get("accessToken") && Cookie.get("role") !== "ADMIN") {
       navigate("/write");
-    } else if (cookie.get("role") === "ADMIN") {
+    } else if (Cookie.get("role") === "ADMIN") {
       toast.error("어드민은 청원을 작성할 수 없습니다.");
     } else {
       toast.error("해당 기능은 로그인이 필요합니다");

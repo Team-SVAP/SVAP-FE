@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
-import { Zoom, toast } from "react-toastify";
-import { Cookies } from "react-cookie";
+import { toast } from "react-toastify";
 import { deletePost, getPostDetail, patchState } from "../../apis/Petition";
 import { Button } from "../../components/common/Button";
 import { Dropdown } from "../../components/Dropdown";
+import { Cookie } from "../../utils/Utilities";
 import { postReport } from "../../apis/Report";
 import * as m from "../../styles/modalStyle";
 import { imgPath } from "../../utils/Paths";
@@ -44,7 +44,6 @@ export const Detail = () => {
   }
   const setContent = useSetRecoilState(Modal);
   const navigate = useNavigate();
-  const cookie = new Cookies();
   const ban = useRef("");
 
   useEffect(() => {
@@ -111,10 +110,7 @@ export const Detail = () => {
     deletePost(id as unknown as number).then(() => {
       toast.success(<b>해당 글을 삭제했습니다.</b>)
       navigate("/watch/all");
-    }).catch(err => {
-    console.log(err)
-    console.log(id);
-    })
+    }).catch(() => {})
   }
 
   const handleBan = () => {
@@ -200,7 +196,7 @@ export const Detail = () => {
         <_.Texts size={2.125} color="--gray800">{data.title}</_.Texts>
         <div>
           <_.Texts size={1.225} color="--gray700">{data.accountId}</_.Texts>
-          { cookie.get("role") === "ADMIN" && <img src={`${imgPath.S}/Ban.svg`} alt="" title="유저 차단하기" onClick={() => setModal(BanComponent)} />}
+          { Cookie.get("role") === "ADMIN" && <img src={`${imgPath.S}/Ban.svg`} alt="" title="유저 차단하기" onClick={() => setModal(BanComponent)} />}
         </div>
       </_.TitleBox>
       <_.Line />
@@ -251,10 +247,10 @@ export const Detail = () => {
         </div>
       </_.StatusBox>
       {
-        cookie.get("accessToken") && <>
+        Cookie.get("accessToken") && <>
           <_.AgreeBox>
             {
-              cookie.get("role") === "STUDENT"
+              Cookie.get("role") === "STUDENT"
               ? <>
                 <div id="TextBox">
                   <h1>청원 투표하기</h1>
@@ -278,10 +274,10 @@ export const Detail = () => {
                 </div>
               </_.AdminBox>
             }
-          { cookie.get("role") === "STUDENT" 
+          { Cookie.get("role") === "STUDENT" 
           ? <>
             {
-              cookie.get("accountId") !== data.accountId
+              Cookie.get("accountId") !== data.accountId
               ? <_.Report onClick={() => setModal(ReportComponent)}>이 청원 신고하기</_.Report>
               : <EditComponent />
             }

@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Cookies } from "react-cookie";
 import { useState } from "react";
 import { Wrapper, HeaderBox, FooterBox, MainBox } from "../Style";
 import { getInfo, postLogin } from "../../../apis/User/index";
 import { Button } from "../../../components/common/Button";
 import { Input } from "../../../components/common/Input";
+import { Cookie } from "../../../utils/Utilities";
 import { imgPath } from "../../../utils/Paths";
 import { IData } from "../Types";
+
 
 export const Login = () => {
   const [data, setData] = useState<IData>({
@@ -17,7 +18,6 @@ export const Login = () => {
   const [visible, setVisible] = useState(false);
   const disable = (data.accountId !== "") && (data.password !== "") && (data.password.match(/[{}[\]/?.,;:)*~`|!^\-_+<>@#$%&\\=("']/g)) as unknown as boolean;
   const navigate = useNavigate();
-  const cookie = new Cookies();
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const {id, value} = e.currentTarget;
@@ -27,15 +27,15 @@ export const Login = () => {
   const handleLogin = () => {
     postLogin(data).then(res => {
       if(res) {
-        cookie.set("accessToken", res.data.accessToken);
-        cookie.set("refreshToken", res.data.refreshToken);
+        Cookie.set("accessToken", res.data.accessToken);
+        Cookie.set("refreshToken", res.data.refreshToken);
         getInfo().then(res => {
-          cookie.set("name", res.data.userName);
-          cookie.set("role", res.data.role);
-          cookie.set("accountId", res.data.accountId);
+          Cookie.set("name", res.data.userName);
+          Cookie.set("role", res.data.role);
+          Cookie.set("accountId", res.data.accountId);
           navigate("/");
           toast.success(<b>성공적으로 로그인되었습니다</b>);
-        })
+        }).catch(() => {});
       }
     }).catch(() => {})
   }
@@ -63,7 +63,7 @@ export const Login = () => {
           icon={
             {
               "icon": `${imgPath.S}/${visible ? "Opened.svg" : "Closed.svg"}`, 
-              action: () => setVisible(visible ? false : true)
+              action: () => setVisible(visible => { return !visible })
             }
           }
         />
