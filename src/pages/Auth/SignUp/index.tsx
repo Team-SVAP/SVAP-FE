@@ -1,6 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Cookies } from "react-cookie";
 import { useState } from "react";
 import { getDuplicationId, postAdminSignUp, postSignUp } from "../../../apis/User";
 import { Wrapper, HeaderBox, FooterBox, MainBox } from "../Style";
@@ -31,7 +30,6 @@ export const SignUp = () => {
   }
   const [searchParams, ] = useSearchParams();
   const admin = searchParams.get("a");
-  const cookie = new Cookies();
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     if(e.currentTarget.id.includes("_")) { 
