@@ -30,9 +30,8 @@ instance.interceptors.response.use(
     if(status === 401) {
       const token = Cookie.get("refreshToken");
       postRefresh(token).then(res => {
-        Cookie.set("accessToken", res.data.accessToken);
-        Cookie.set("refreshToken", res.data.refreshToken);
-        config.headers.Authorization = `Bearer ${res.data.accessToken}`;
+        Cookie.set("accessToken", res.data.access_token);
+        config.headers.Authorization = `Bearer ${res.data.access_token}`;
         return axios(config);
       }).catch(() => {})
     }
