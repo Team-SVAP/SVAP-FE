@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { Wrapper, HeaderBox, FooterBox, MainBox } from "../Style";
@@ -74,7 +74,7 @@ export const Login = () => {
           style={{"alignSelf": "flex-end"}}
         />
       </MainBox>
-      <FooterBox>아직 가입하지 않으셨나요? <a href="/signup">회원가입</a>또는<a href="/signup?a=true">관리자 회원가입</a></FooterBox>
+      <FooterBox>아직 가입하지 않으셨나요? <Link to="/signup">회원가입</Link>또는<Link to="/signup?a=true">관리자 회원가입</Link></FooterBox>
     </Wrapper>
   </>
 }

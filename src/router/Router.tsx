@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import { styled } from "styled-components";
 import { Header } from "../components/static/Header";
 import { Footer } from "../components/static/Footer";
@@ -14,7 +14,7 @@ import { My } from "../pages/My";
 import { Admin } from "../pages/Admin";
 
 export const Router = () => {
-  return <BrowserRouter>
+  return <HashRouter basename="/">
     <Wrapper>
       <Header />
       <Page>
@@ -33,7 +33,7 @@ export const Router = () => {
       </Page>
       <Footer />
     </Wrapper>
-  </BrowserRouter>
+  </HashRouter>
 }
 
 const Page = styled.div`
