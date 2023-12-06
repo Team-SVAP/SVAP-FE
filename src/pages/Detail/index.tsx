@@ -218,7 +218,7 @@ export const Detail = () => {
         }
         { // 이미지 표시
           data.imgUrl.length === 0
-          ? <img src={`${imgPath.P}/frame.png`} alt="" /> // 이미지 배열이 비었을 경우
+          ? <img src={`${imgPath.P}/Frame.png`} alt="" /> // 이미지 배열이 비었을 경우
           : <img src={data.imgUrl[cnt]} id="image" alt=""  onClick={() => setModal(ZoomComponent)}  /> // 이미지 배열이 비어있지 않을 경우
         }
         { // 이미지 갯수
