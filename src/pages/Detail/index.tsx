@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import { toast } from "react-toastify";
 import { deletePost, getPostDetail, patchState } from "../../apis/Petition";
+import { DetailTypes, DetailTypesAPI } from "../../utils/Types";
 import { Button } from "../../components/common/Button";
 import { Dropdown } from "../../components/Dropdown";
 import { Cookie } from "../../utils/Utilities";
@@ -21,7 +22,7 @@ export const Detail = () => {
   const [cnt, setCnt] = useState<number>(0);
   const [data, setData] = useState<IData>({
     accessTypes: "",
-    content: <></>,
+    content: "",
     id: 0,
     imgUrl: [],
     location: "",
@@ -32,16 +33,6 @@ export const Detail = () => {
     voteCounts: 0,
     accountId: ""
   });
-  const types: any = { // 일반 데이터를 텍스트로 변환
-    normal: "접수",
-    wait: "검토중",
-    access: "승인"
-  }
-  const typesAPI: any = { // API 데이터를 일반 데이터로 변환
-    NORMAL: "normal",
-    WAITING: "wait",
-    APPROVAL: "access"
-  }
   const setContent = useSetRecoilState(Modal);
   const navigate = useNavigate();
   const ban = useRef("");
@@ -49,8 +40,8 @@ export const Detail = () => {
   useEffect(() => {
     getPostDetail(id as unknown as number).then(res => {
       setData({
-        accessTypes: typesAPI[res.data.accessTypes],
-        content: <>{res.data.content.split("\n").map((i: string, key: number) => i === "" ? <><br /></> : <p key={key}>{i}</p>)}</>,
+        accessTypes: DetailTypesAPI[res.data.accessTypes],
+        content: res.data.content,
         id: res.data.id,
         imgUrl: res.data.imgUrl !== null ? res.data.imgUrl : [],
         location: res.data.location,
@@ -101,7 +92,7 @@ export const Detail = () => {
     const tmp = e.currentTarget.id;
     setData({...data, accessTypes: e.currentTarget.id});
     patchState(e.currentTarget.id, id as unknown as number).then(() => {
-      toast.success(<b>상태를 {types[tmp]}(으)로 변경하였습니다</b>)
+      toast.success(<b>상태를 {DetailTypes[tmp]}(으)로 변경하였습니다</b>)
     })
   }
 
@@ -266,7 +257,7 @@ export const Detail = () => {
               : <_.AdminBox>
                 <div id="State">
                   <h1>청원 상태 변경</h1>
-                  <Dropdown value={types} data={data.accessTypes} action={handleTypes}/>
+                  <Dropdown value={DetailTypes} data={data.accessTypes} action={handleTypes}/>
                 </div>
                 <div id="Result">
                   <h1>청원 결과</h1>

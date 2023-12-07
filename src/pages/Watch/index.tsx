@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { SearchBar } from '../../components/SearchBar';
 import { getPosts } from '../../apis/Petition';
+import { WatchType } from '../../utils/Types';
 import { Post } from '../../components/Post';
 import { imgPath } from '../../utils/Paths';
 import * as _ from './Style';
@@ -11,13 +12,7 @@ export const Watch = () => {
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState<any>();
   const loc = useLocation();
-  const path = loc.pathname.split("/")
-  const types: any = {
-    normal: "접수된 청원만 보기",
-    approval: "승인된 청원만 보기",
-    waiting: "검토중인 청원만 보기",
-    vote: "투표순대로 보기"
-  }
+  const path = loc.pathname.split("/");
 
   const handleTypes = (e: React.MouseEvent<HTMLHeadingElement>) => {
     setSelect(e.currentTarget.id);
@@ -44,7 +39,7 @@ export const Watch = () => {
       <SearchBar width="100%" />
       <_.Middle>
         <_.DropdownBox $clicked={clicked}>
-          <div><h1>{types[select]}</h1><img src={`${imgPath.S}/Left.svg`} alt="" id="arrow"/></div>
+          <div><h1>{WatchType[select]}</h1><img src={`${imgPath.S}/Left.svg`} alt="" id="arrow"/></div>
           <_.HiddenBox id="hidden">
             <h1 onClick={handleTypes} id="normal">접수된 청원만 보기</h1>
             <h1 onClick={handleTypes} id="approval">승인된 청원만 보기</h1>
