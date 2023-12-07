@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { getPopularPetition } from "../../apis/Petition";
 import { SearchBar } from "../../components/SearchBar";
@@ -11,7 +11,7 @@ import * as _ from "./Style";
 export const Main = () => {
   const [best, setBest] = useState<IBest>({
     title: "",
-    content: <></>,
+    content: "",
     id: ""
   })
   const [slide, setSlide] = useState(1);
@@ -41,7 +41,7 @@ export const Main = () => {
     getPopularPetition().then(res => {
       setBest({
         title: res.data.title,
-        content: <>{res.data.content.split("\n").map((i: string, key: number) => i === "" ? <><br /></> : <p key={key}>{i}</p>)}</>,
+        content: res.data.content,
         id: res.data.id
       })
     }).catch(() => {})

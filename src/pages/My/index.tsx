@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { getMyPost } from "../../apis/User";
 import { Post } from "../../components/Post";
-import { IData } from "./Types";
+import { getMyPost } from "../../apis/User";
 import * as _ from "./Style";
 
 export const My = () => {
@@ -9,16 +8,7 @@ export const My = () => {
 
   useEffect(() => {
     getMyPost().then(res => {
-      res.data.map((i: IData) => {
-        setPosts((posts:object[]) => [...posts, {
-          title: i.title,
-          content: i.content,
-          types: i.type==="SCHOOL" ? "학교" : "기숙사",
-          location: i.location,
-          date: (i.dateTime.split("T"))[0],
-          id: i.id
-        }])
-      })
+      setPosts(res.data);
     }).catch(() => {})
   }, [])
 
