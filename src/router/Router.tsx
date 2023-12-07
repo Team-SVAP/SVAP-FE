@@ -12,43 +12,23 @@ import { Watch } from "../pages/Watch";
 import { Main } from "../pages/Main";
 import { My } from "../pages/My";
 import { Admin } from "../pages/Admin";
+import { Layout } from "./Layout";
 
 export const Router = () => {
   return <HashRouter basename="/">
-    <Wrapper>
-      <Header />
-      <Page>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/my" element={<My />} />
-          <Route path="/write" element={<Write />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/watch/:page" element={<Watch />} />
-          <Route path="/posts/:id" element={<Detail />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<Error/>} />
-        </Routes>
-      </Page>
-      <Footer />
-    </Wrapper>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="" element={<Main />} />
+        <Route path="search" element={<Search />} />
+        <Route path="my" element={<My />} />
+        <Route path="write" element={<Write />} />
+        <Route path="login" element={<Login />} />
+        <Route path="watch/:page" element={<Watch />} />
+        <Route path="posts/:id" element={<Detail />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="admin" element={<Admin />} />
+      </Route>
+      <Route path="*" element={<Error/>} />
+    </Routes>
   </HashRouter>
 }
-
-const Page = styled.div`
-  gap: 3.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  min-height: 87vh;
-  margin-bottom: 3.125rem;
-`
-
-const Wrapper = styled(Page)` 
-  gap: 0;
-  flex: 0;
-  margin-bottom: 0;  
-`
