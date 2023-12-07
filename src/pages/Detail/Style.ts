@@ -191,9 +191,11 @@ export const Texts = styled.h1<{size: number, color: string}>`
 `
 
 export const Data = styled.div`
+  white-space: pre-wrap;
+  word-break: break-all;
   min-height: 50vh;
-  font-size: 1.25rem;
   font-weight: 600;
+  font-size: 1.25rem;
   color: var(--gray800);
 `
 

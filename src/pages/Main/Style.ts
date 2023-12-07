@@ -112,6 +112,8 @@ export const PostsData = styled.div`
   }
   & > h2 { // 글
     user-select: text;
+    white-space: pre-wrap;
+    word-break: break-all;
     font-weight: 700;
     font-size: 1.5rem;
     color: var(--gray700);
