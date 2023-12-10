@@ -25,10 +25,10 @@ export const SignUp = () => {
     cnt: 1
   })
   const disable = {
-    id: (data.accountId.length >= 8) && (data.accountId.length <= 30),
-    pw: (data.password.length) >= 8 && (data.password.match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/g)) && (data.password === auth.confirm),
-    name: (data.userName) && (data.userName.length >= 2) && (data.userName.length <= 4),
-    code: (auth.code.length >= 1)
+    id: data.accountId.match(/^.{8,30}$/),
+    pw: data.password.match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/g) && (data.password === auth.confirm),
+    name: data.userName?.match(/^.{2,4}$/),
+    code: auth.code.match(/^.{1,10}$/)
   }
   const [searchParams, ] = useSearchParams();
   const admin = searchParams.get("a");
@@ -97,7 +97,7 @@ export const SignUp = () => {
             />
             <Button
               text="다음"
-              disabled={disable.id}
+              disabled={disable.id as unknown as boolean}
               action={handleNext}
               style={{"alignSelf": "flex-end"}}
             />
