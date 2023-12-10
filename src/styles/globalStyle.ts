@@ -11,6 +11,10 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration-line: none;
     font-family: "IBM Plex Sans KR";
   }
+  
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
 
   label, textarea {
     cursor: text;
