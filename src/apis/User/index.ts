@@ -27,7 +27,7 @@ export const getDuplicationId = async (Data: IAuth) => { // ID 중복확인
   return await instance.post("/user/ck-account-id", Data);
 }
 
-export const getDuplicationName = async (Data: IAuth) => { // ID 중복확인
+export const getDuplicationName = async (Data: IAuth) => { // 이름 중복확인
   return await instance.post("/user/ck-username", Data);
 }
 
@@ -36,5 +36,5 @@ export const getInfo = async () => { // 유저정보 확인
 }
 
 export const postRefresh = async (token: string) => { // 토큰 리프레쉬
-  return await instance.post("/user/reissue", {}, { headers: { "AUTHORIZATION_HEADER": `${token}` } });
+  return await instance.post("/user/reissue", {}, { headers: { "AUTHORIZATION_HEADER": token } });
 }

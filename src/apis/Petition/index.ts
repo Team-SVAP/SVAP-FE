@@ -7,9 +7,7 @@ export const postPost = async (data: IData, files?: Array<any>) => { // 청원 �
 }
 
 export const postImage = async (data: FormData) => { // 이미지 업로드
-  return await instance.post("/petition/image", data, { headers: {
-    "Content-Type": "multipart/form-data"
-  }});
+  return await instance.post("/petition/image", data);
 }
 
 export const patchPost = async (data: IData, id: number) => { // 청원 글 수정
@@ -32,8 +30,8 @@ export const getPopularPetition = async () => { // 인기 청원 조회
   return await instance.get("/petition/popular");
 }
 
-export const getPosts = async (url: string) => { // 청원 조회
-  return await instance.get(`/petition/${url}`);
+export const getPosts = async (type: string, accessType: string) => { // 청원 조회
+  return await instance.get(`/petition/sort/${type}/${accessType}`);
 }
 
 export const patchState = async (state: string, id: number) => { // 청원 상태 변경

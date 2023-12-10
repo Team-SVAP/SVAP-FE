@@ -4,18 +4,18 @@ import { Cookie } from "../utils/Utilities";
 import { postRefresh } from "./User";
 
 export const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_KEY}`,
+  baseURL: process.env.REACT_APP_API_KEY,
   timeout: 3000,
 })
 
 instance.interceptors.request.use(
   res => {
     const token = Cookie.get("accessToken");
-    if(token !== undefined) res.headers.Authorization = `Bearer ${Cookie.get("accessToken")}`;
+    if(token) res.headers.Authorization = `Bearer ${token}`;
     return res;
   }, 
   err => {
-    toast.error("오류가 발생헀습니다");
+    toast.error(<b>오류가 발생헀습니다</b>);
     return Promise.reject(err);
   }
 )
