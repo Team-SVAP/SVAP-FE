@@ -12,7 +12,8 @@ export const Watch = () => {
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState<any>();
   const loc = useLocation();
-  const path = loc.pathname.split("/");
+  const { pathname } = loc;
+  const path = pathname.split("/").at(-1) as unknown as string;
 
   const handleTypes = (e: React.MouseEvent<HTMLHeadingElement>) => {
     setSelect(e.currentTarget.id);
@@ -21,16 +22,9 @@ export const Watch = () => {
   }
 
   useEffect(() => {
-    const tmp = path[path.length-1];
-    if(select !== "vote") { // 정렬 방식이 두개로 분리되어있음...
-      getPosts(`${tmp !== "all" ? `sort/${tmp.toUpperCase()}/` : "sort-all/"}${select.toUpperCase()}`).then(res => {
-        setData(res.data);
-      }).catch(() => {})
-    } else {
-      getPosts(`vote${tmp !== "all" ? `/${tmp.toUpperCase()}` : "-all"}`).then(res => {
-        setData(res.data);
-      }).catch(() => {})
-    }
+    getPosts(path.toUpperCase(), select.toUpperCase()).then(res => {
+      setData(res.data);
+    }).catch(() => {})
   }, [select, loc])
 
   return <_.Wrapper>
@@ -48,9 +42,9 @@ export const Watch = () => {
           </_.HiddenBox>
         </_.DropdownBox>
         <_.Selection>
-          <Link to="../watch/all" id={path[path.length-1] === "all" ? "selected" : ""}>전체 청원</Link>
-          <Link to="../watch/school" id={path[path.length-1] === "school" ? "selected" : ""}>학교 청원</Link>
-          <Link to="../watch/dormitory" id={path[path.length-1] === "dormitory" ? "selected" : ""}>기숙사 청원</Link>
+          <Link to="../watch/all" id={path === "all" ? "selected" : ""}>전체 청원</Link>
+          <Link to="../watch/school" id={path === "school" ? "selected" : ""}>학교 청원</Link>
+          <Link to="../watch/dormitory" id={path === "dormitory" ? "selected" : ""}>기숙사 청원</Link>
         </_.Selection>
       </_.Middle>
       <_.Line />
