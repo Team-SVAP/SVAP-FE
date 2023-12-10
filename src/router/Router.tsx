@@ -1,7 +1,4 @@
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
-import { styled } from "styled-components";
-import { Header } from "../components/static/Header";
-import { Footer } from "../components/static/Footer";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { SignUp } from "../pages/Auth/SignUp";
 import { Login } from "../pages/Auth/Login";
 import { Detail } from "../pages/Detail";
@@ -9,10 +6,10 @@ import { Search } from "../pages/Search";
 import { Error } from "../pages/Error";
 import { Write } from "../pages/Write";
 import { Watch } from "../pages/Watch";
-import { Main } from "../pages/Main";
-import { My } from "../pages/My";
 import { Admin } from "../pages/Admin";
+import { Main } from "../pages/Main";
 import { Layout } from "./Layout";
+import { My } from "../pages/My";
 
 export const Router = () => {
   return <HashRouter basename="/">

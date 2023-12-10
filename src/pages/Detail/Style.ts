@@ -108,6 +108,7 @@ export const StatusBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-width: 305px;
   & > div {
     gap: 0.313rem;
     display: flex;

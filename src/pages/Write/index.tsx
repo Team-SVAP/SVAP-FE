@@ -1,12 +1,11 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-// import { postPetition } from "../../apis/Petition";
 import { Button } from "../../components/common/Button";
 import { Input } from "../../components/common/Input";
 import { imgPath } from "../../utils/Paths";
 import { IData, IItem } from "./Types";
-import "../../styles/style";
+import "../../styles/globalStyle";
 import * as _ from "./Style";
 import { Dropdown } from "../../components/Dropdown";
 import { getPostDetail, patchPost, postImage, postPost } from "../../apis/Petition";
