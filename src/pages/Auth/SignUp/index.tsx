@@ -1,13 +1,15 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { getDuplicationId, postAdminSignUp, postSignUp } from "../../../apis/User";
+import { getDuplicationId, getInfo, postAdminSignUp, postSignUp } from "../../../apis/User";
 import { Wrapper, HeaderBox, FooterBox, MainBox } from "../Style";
 import { Button } from "../../../components/common/Button";
 import { Input } from "../../../components/common/Input";
 import { imgPath } from "../../../utils/Paths";
 import { IData, IAuth } from "../Types";
 import * as _ from "./Style";
+import { AxiosResponse } from "axios";
+import { Cookie } from "../../../utils/Utilities";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export const SignUp = () => {
   })
   const disable = {
     id: (data.accountId.length >= 8) && (data.accountId.length <= 30),
-    pw: (data.password.length) >= 8 && (data.password.match(/[{}[\]/?.,;:)*~`|!^\-_+<>@#$%&\\=("']/g)) && (data.password === auth.confirm),
+    pw: (data.password.length) >= 8 && (data.password.match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/g)) && (data.password === auth.confirm),
     name: (data.userName) && (data.userName.length >= 2) && (data.userName.length <= 4),
     code: (auth.code.length >= 1)
   }
@@ -40,20 +42,27 @@ export const SignUp = () => {
   }
   
   const handleSubmit = () => {
-    postSignUp(data).then(() => {
-      handleAfter();
+    postSignUp(data).then(res => {
+      handleAfter(res);
     }).catch(() => {})
   }
 
   const handleAdminSubmit = () => {
-    postAdminSignUp(data, auth.code).then(() => {
-      handleAfter();
+    postAdminSignUp(data, auth.code).then(res => {
+      handleAfter(res);
     }).catch(() => {})
   }
 
-  const handleAfter = () => {
-    navigate("/login");
-    toast.success(<b>회원 가입이 완료되었습니다</b>);
+  const handleAfter = (res: AxiosResponse) => {
+    Cookie.set("accessToken", res.data.accessToken);
+    Cookie.set("refreshToken", res.data.refreshToken);
+    getInfo().then(res => {
+      Cookie.set("name", res.data.userName);
+      Cookie.set("role", res.data.role);
+      Cookie.set("accountId", res.data.accountId);
+      navigate("/");
+      toast.success(<b>성공적으로 회원가입되었습니다</b>);
+    }).catch(() => {});
   }
 
   const handleNext = () => {
