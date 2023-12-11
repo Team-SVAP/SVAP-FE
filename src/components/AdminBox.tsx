@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { IAdmin } from './Types';
-
+import { toast } from 'react-toastify';
 import * as m from "../styles/modalStyle";
 import { Button } from './common/Button';
 import { postUnban } from '../apis/Ban';
-import { toast } from 'react-toastify';
+import { IAdmin } from './Types';
 
 export const AdminBox = ({ title, petitionId, reportTime, user, banReason, userId, bannedTime, userName, bannedBy, modal}: IAdmin) => {
   const navigate = useNavigate();
